@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../Navigation';
+import StyledButton from '../../SharedComponents/StyledButton';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -12,23 +13,32 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 };
 
-function HomeScreen({navigation}: Props) {
+const HomeScreen = ({navigation}: Props) => {
   return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.push('Details')}
+    <View style={styles.screen}>
+      <Text style={styles.text}>5th Edition</Text>
+      <Image source={require('../../../assets/logo.png')} resizeMode="cover" />
+
+      <StyledButton
+        text="To Characters"
+        onClick={() => {
+          navigation.push('Details');
+        }}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  text: {
+    color: '#B6B6B6',
+    fontSize: 30,
   },
 });
 

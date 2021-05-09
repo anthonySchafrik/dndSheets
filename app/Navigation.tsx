@@ -25,7 +25,11 @@ function Navigation() {
   return (
     <NavigationContainer>
       <RootStack.Navigator initialRouteName="Home">
-        <RootStack.Screen name="Home" component={HomeScreen} />
+        <RootStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{headerTransparent: true, title: ''}}
+        />
         <RootStack.Screen name="Details" component={DetailsScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
