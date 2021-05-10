@@ -22,7 +22,7 @@ const HomeScreen = ({navigation}: Props) => {
       <StyledButton
         text="To Characters"
         onClick={() => {
-          navigation.push('Details');
+          navigation.push('Characters');
         }}
       />
     </View>

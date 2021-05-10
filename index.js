@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 
 import App from './app/App';
 import {name as appName} from './app.json';
-import store from './redux/store';
+import store from './app/redux/store';
 
 const ReduxApp = () => (
   <Provider store={store}>

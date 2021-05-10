@@ -1,25 +1,20 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './areas/Home';
-
-//todo remove once nav is done
-function DetailsScreen() {
-  return (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
+import CharactersScreen from './areas/CharactersScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: undefined;
+  Characters: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
+
+const defaultScreenOptions = {
+  headerTransparent: true,
+  title: '',
+};
 
 function Navigation() {
   return (
@@ -28,9 +23,13 @@ function Navigation() {
         <RootStack.Screen
           name="Home"
           component={HomeScreen}
-          options={{headerTransparent: true, title: ''}}
+          options={defaultScreenOptions}
         />
-        <RootStack.Screen name="Details" component={DetailsScreen} />
+        <RootStack.Screen
+          name="Characters"
+          component={CharactersScreen}
+          options={defaultScreenOptions}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
