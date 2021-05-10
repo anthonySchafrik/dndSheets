@@ -1,5 +1,4 @@
 // Character types
-
 export interface CharacterState {
   name?: string;
 }

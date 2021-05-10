@@ -10,6 +10,7 @@ import {RootStackParamList} from '../../Navigation';
 // import CharacterList from '../components/CharacterList';
 import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
+import CharacterList from './components/CharacterList';
 
 type CharactersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -49,7 +50,7 @@ class CharactersScreen extends Component<Props, State> {
   // };
 
   render = () => {
-    // const {navScreenPush, fetchCharactersData} = this;
+    // const {navScreenPush} = this; //fetchCharactersData
     // const {characters} = this.props;
 
     return (
@@ -57,11 +58,11 @@ class CharactersScreen extends Component<Props, State> {
         <Image source={require('../../../assets/sword-dice.png')} />
 
         <View style={styles.listContainer}>
-          {/* <CharacterList
-            fetchCharactersData={fetchCharactersData}
-            navScreenPush={navScreenPush}
-            chars={characters}
-          /> */}
+          <CharacterList
+            // fetchCharactersData={fetchCharactersData}
+            navScreenPush={this.navScreenPush('Character')}
+            chars={['test 1', 'test 2']}
+          />
         </View>
 
         <View>

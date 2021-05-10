@@ -3,11 +3,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import HomeScreen from './areas/Home';
-import CharactersScreen from './areas/CharactersScreen';
-import CharacterCreateScreen from './areas/CharacterCreateScreen';
+import CharacterScreen from './areas/Character';
+import CharactersScreen from './areas/Characters';
+import CharacterCreateScreen from './areas/CharacterCreate';
 
 export type RootStackParamList = {
   Home: undefined;
+  Character: undefined;
   Characters: undefined;
   CharacterCreate: undefined;
 };
@@ -26,6 +28,11 @@ function Navigation() {
         <RootStack.Screen
           name="Home"
           component={HomeScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="Character"
+          component={CharacterScreen}
           options={defaultScreenOptions}
         />
         <RootStack.Screen
