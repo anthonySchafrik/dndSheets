@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
 // import {Ionicons} from '@expo/vector-icons';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // import {setSelectCharacter} from '../actions/characters';
 
@@ -66,6 +67,8 @@ Props) => {
               {char}
             </Text>
           </View>
+
+          <Icon name="delete" size={20} color="black" />
 
           {/* <Ionicons
             name="md-close-circle-outline"

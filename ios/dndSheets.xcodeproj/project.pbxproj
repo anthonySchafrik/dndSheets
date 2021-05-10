@@ -114,7 +114,6 @@
 				1C0B2AAA309D32266802A6E4 /* Pods-dndSheets-dndSheetsTests.debug.xcconfig */,
 				42F8ABEB05FA0CAEA2FE4621 /* Pods-dndSheets-dndSheetsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
