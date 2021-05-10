@@ -1,7 +1,7 @@
 import {Action} from 'redux';
 
-import {actionTypes} from '../actions/characterActions';
-import {CharacterState, UpdateCharacter} from '../reduxType';
+import {actionTypes} from '../../actions/characterActions';
+import {CharacterState, UpdateCharacter} from '../../reduxType';
 
 const initialState: CharacterState = {
   name: 'TestName',

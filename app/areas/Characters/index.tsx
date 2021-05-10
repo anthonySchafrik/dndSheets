@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {RootStackParamList} from '../../Navigation';
 
-// import {setSelectCharacter} from '../actions/characters';
+import {setSavedCharacters} from '../../redux/actions/characterActions';
+import {AppDispatch, AppState} from '../../redux/store';
 
 // import CharacterList from '../components/CharacterList';
 import StyledButton from '../../SharedComponents/StyledButton';
@@ -19,16 +20,16 @@ type CharactersScreenNavigationProp = StackNavigationProp<
 
 type Props = {
   navigation: CharactersScreenNavigationProp;
+  setSavedCharacters: (payload: string[]) => void;
+  characterList: string[];
 };
 
 interface State {}
 
 class CharactersScreen extends Component<Props, State> {
   componentDidMount = () => {
-    console.log('CharactersScreen mounted', this);
-    // const { fetchCharactersData } = this;
-
-    // fetchCharactersData();
+    const {getSavedCharacters} = this;
+    getSavedCharacters();
   };
 
   navScreenPush = (screen: keyof RootStackParamList) => () => {
@@ -37,21 +38,24 @@ class CharactersScreen extends Component<Props, State> {
     navigation.push(screen);
   };
 
-  // fetchCharactersData = async () => {
-  //   const {fetchCharacters} = this.props;
-  //   try {
-  //     const keys = await AsyncStorage.getAllKeys();
-  //     if (keys !== null) {
-  //       fetchCharacters(keys);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  getSavedCharacters = async () => {
+    // eslint-disable-next-line no-shadow
+    const {setSavedCharacters} = this.props;
+    try {
+      // const keys = await AsyncStorage.getAllKeys();
+      // if (keys !== null) {
+      setSavedCharacters(['name1', 'name2']);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render = () => {
-    // const {navScreenPush} = this; //fetchCharactersData
-    // const {characters} = this.props;
+    const {
+      //fetchCharactersData,
+      props: {characterList},
+    } = this;
 
     return (
       <View style={styles.screen}>
@@ -61,7 +65,7 @@ class CharactersScreen extends Component<Props, State> {
           <CharacterList
             // fetchCharactersData={fetchCharactersData}
             navScreenPush={this.navScreenPush('Character')}
-            chars={['test 1', 'test 2']}
+            chars={characterList}
           />
         </View>
 
@@ -90,16 +94,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  // const { selectedCharacter, characters } = state.character;
+const mapStateToProps = (state: AppState) => {
+  const {characterList} = state;
   return {
-    // selectedCharacter,
-    // characters
+    characterList,
   };
 };
 
-const mapDispatchToProp = dispatch => {
-  return bindActionCreators({}, dispatch);
+const mapDispatchToProp = (dispatch: AppDispatch) => {
+  return bindActionCreators({setSavedCharacters}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(CharactersScreen);

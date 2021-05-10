@@ -16,3 +16,11 @@ export interface UpdateCharacter {
   type: string;
   payload: UpdateCharacterPayload;
 }
+
+// CharacterList
+
+export type CharacterListState = string[];
+export interface SetSavedCharacters {
+  type: string;
+  payload: string[];
+}
