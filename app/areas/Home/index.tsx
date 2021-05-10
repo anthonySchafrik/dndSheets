@@ -4,16 +4,17 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../Navigation';
 import StyledButton from '../../SharedComponents/StyledButton';
 
-type ProfileScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Home'
->;
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 type Props = {
-  navigation: ProfileScreenNavigationProp;
+  navigation: HomeScreenNavigationProp;
 };
 
 const HomeScreen = ({navigation}: Props) => {
+  const navScreenPush = (screen: keyof RootStackParamList) => () => {
+    navigation.push(screen);
+  };
+
   return (
     <View style={styles.screen}>
       <Text style={styles.text}>5th Edition</Text>
@@ -21,9 +22,7 @@ const HomeScreen = ({navigation}: Props) => {
 
       <StyledButton
         text="To Characters"
-        onClick={() => {
-          navigation.push('Characters');
-        }}
+        onClick={navScreenPush('Characters')}
       />
     </View>
   );

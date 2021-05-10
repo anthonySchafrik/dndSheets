@@ -1,7 +1,9 @@
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {Component} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {RootStackParamList} from '../../Navigation';
 
 // import {setSelectCharacter} from '../actions/characters';
 
@@ -9,19 +11,30 @@ import {bindActionCreators} from 'redux';
 import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
 
-class CharactersScreen extends Component {
+type CharactersScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Characters'
+>;
+
+type Props = {
+  navigation: CharactersScreenNavigationProp;
+};
+
+interface State {}
+
+class CharactersScreen extends Component<Props, State> {
   componentDidMount = () => {
-    console.log('CharactersScreen mounted');
+    console.log('CharactersScreen mounted', this);
     // const { fetchCharactersData } = this;
 
     // fetchCharactersData();
   };
 
-  // navScreenPush = screen => {
-  //   const {navigation} = this.props;
+  navScreenPush = (screen: keyof RootStackParamList) => () => {
+    const {navigation} = this.props;
 
-  //   navigation.push(screen);
-  // };
+    navigation.push(screen);
+  };
 
   // fetchCharactersData = async () => {
   //   const {fetchCharacters} = this.props;
@@ -52,7 +65,10 @@ class CharactersScreen extends Component {
         </View>
 
         <View>
-          <StyledButton onClick={() => {}} text="Create Character" />
+          <StyledButton
+            onClick={this.navScreenPush('CharacterCreate')}
+            text="Create Character"
+          />
         </View>
       </View>
     );
