@@ -42,7 +42,7 @@ class CharactersScreen extends Component<Props, State> {
     try {
       // const keys = await AsyncStorage.getAllKeys();
       // if (keys !== null) {
-      setSavedCharacters(['name1', 'name2']);
+      setSavedCharacters(['Schaf', 'Tiedie']);
       // }
     } catch (error) {
       console.log(error);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 import { RootStackParamList } from '../../Navigation';
 import StyledButton from '../../SharedComponents/StyledButton';
 

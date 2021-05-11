@@ -18,7 +18,6 @@ export interface UpdateCharacter {
 }
 
 // CharacterList
-
 export type CharacterListState = string[];
 export interface SetSavedCharacters {
   type: string;
