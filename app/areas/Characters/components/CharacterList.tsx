@@ -1,28 +1,27 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native';
-// import {Ionicons} from '@expo/vector-icons';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-// import {setSelectCharacter} from '../actions/characters';
+import { AnyAction } from 'redux';
 
 import theme from '../../../theme';
+import { useAppDispatch } from '../../../redux/hooks';
 
 interface Props {
   chars?: string[];
   navScreenPush: () => void;
+  setSavedCharacters: (payload: string[]) => AnyAction;
 }
 
 const CharacterList = ({
   chars = [],
-  // setSelectCharacter,
   navScreenPush,
-}: // fetchCharactersData,
-Props) => {
+  setSavedCharacters,
+}: Props) => {
+  const dispatch = useAppDispatch();
+
   const handleSelectCharacter = (char: string) => async () => {
     try {
-      console.log('handleSelectCharacter => ', {char});
+      console.log('handleSelectCharacter => ', { char });
       // const value = await AsyncStorage.getItem(char);
       // if (value !== null) {
       //   setSelectCharacter(JSON.parse(value));
@@ -36,10 +35,9 @@ Props) => {
 
   const deleteCharacter = async (char: string) => {
     try {
-      console.log('deleteCharacter => ', {char});
       // await AsyncStorage.removeItem(char);
 
-      // fetchCharactersData();
+      dispatch(setSavedCharacters(chars.filter(x => x !== char)));
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +47,7 @@ Props) => {
     Alert.alert(
       'Delete Character',
       'This cannot be undone',
-      [{text: 'No'}, {text: 'Yes', onPress: () => deleteCharacter(char)}],
+      [{ text: 'No' }, { text: 'Yes', onPress: () => deleteCharacter(char) }],
       {
         cancelable: false,
       },
@@ -62,20 +60,17 @@ Props) => {
         <View style={styles.list} key={i}>
           <View style={styles.innerContainer}>
             <Text
-              style={{color: theme.font}}
+              style={{ color: theme.font }}
               onPress={handleSelectCharacter(char)}>
               {char}
             </Text>
           </View>
-
-          <Icon name="delete" size={20} color="black" />
-
-          {/* <Ionicons
-            name="md-close-circle-outline"
-            size={24}
+          <Icon
+            name="delete"
+            size={20}
             color="black"
             onPress={handleDeleteCharacter(char)}
-          /> */}
+          />
         </View>
       );
     });
@@ -83,7 +78,7 @@ Props) => {
 
   return (
     <View style={styles.screen}>
-      <ScrollView style={{width: 300}}>{renderCharacterList()}</ScrollView>
+      <ScrollView style={styles.container}>{renderCharacterList()}</ScrollView>
     </View>
   );
 };
@@ -95,21 +90,14 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginVertical: 5,
+    marginVertical: 10,
   },
+  container: { width: 300 },
   innerContainer: {
-    width: '90%',
+    width: '60%',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
 });
 
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProp = dispatch => {
-  return bindActionCreators({}, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProp)(CharacterList);
+export default CharacterList;

@@ -1,14 +1,13 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import React, {Component} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {RootStackParamList} from '../../Navigation';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { Component } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { AnyAction, bindActionCreators } from 'redux';
+import { RootStackParamList } from '../../Navigation';
 
-import {setSavedCharacters} from '../../redux/actions/characterActions';
-import {AppDispatch, AppState} from '../../redux/store';
+import { setSavedCharacters } from '../../redux/actions/characterActions';
+import { AppDispatch, AppState } from '../../redux/store';
 
-// import CharacterList from '../components/CharacterList';
 import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
 import CharacterList from './components/CharacterList';
@@ -20,7 +19,7 @@ type CharactersScreenNavigationProp = StackNavigationProp<
 
 type Props = {
   navigation: CharactersScreenNavigationProp;
-  setSavedCharacters: (payload: string[]) => void;
+  setSavedCharacters: (payload: string[]) => AnyAction;
   characterList: string[];
 };
 
@@ -28,19 +27,18 @@ interface State {}
 
 class CharactersScreen extends Component<Props, State> {
   componentDidMount = () => {
-    const {getSavedCharacters} = this;
+    const { getSavedCharacters } = this;
     getSavedCharacters();
   };
 
   navScreenPush = (screen: keyof RootStackParamList) => () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
 
     navigation.push(screen);
   };
 
   getSavedCharacters = async () => {
-    // eslint-disable-next-line no-shadow
-    const {setSavedCharacters} = this.props;
+    const { setSavedCharacters } = this.props;
     try {
       // const keys = await AsyncStorage.getAllKeys();
       // if (keys !== null) {
@@ -53,22 +51,19 @@ class CharactersScreen extends Component<Props, State> {
 
   render = () => {
     const {
-      //fetchCharactersData,
-      props: {characterList},
+      props: { characterList, setSavedCharacters },
     } = this;
 
     return (
       <View style={styles.screen}>
         <Image source={require('../../../assets/sword-dice.png')} />
-
         <View style={styles.listContainer}>
           <CharacterList
-            // fetchCharactersData={fetchCharactersData}
-            navScreenPush={this.navScreenPush('Character')}
             chars={characterList}
+            navScreenPush={this.navScreenPush('Character')}
+            setSavedCharacters={setSavedCharacters}
           />
         </View>
-
         <View>
           <StyledButton
             onClick={this.navScreenPush('CharacterCreate')}
@@ -95,14 +90,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: AppState) => {
-  const {characterList} = state;
+  const { characterList } = state;
   return {
     characterList,
   };
 };
 
 const mapDispatchToProp = (dispatch: AppDispatch) => {
-  return bindActionCreators({setSavedCharacters}, dispatch);
+  return bindActionCreators({ setSavedCharacters }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(CharactersScreen);

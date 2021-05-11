@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParamList} from '../../Navigation';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../Navigation';
 import StyledButton from '../../SharedComponents/StyledButton';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
@@ -10,7 +10,7 @@ type Props = {
   navigation: HomeScreenNavigationProp;
 };
 
-const HomeScreen = ({navigation}: Props) => {
+const HomeScreen = ({ navigation }: Props) => {
   const navScreenPush = (screen: keyof RootStackParamList) => () => {
     navigation.push(screen);
   };
@@ -19,7 +19,6 @@ const HomeScreen = ({navigation}: Props) => {
     <View style={styles.screen}>
       <Text style={styles.text}>5th Edition</Text>
       <Image source={require('../../../assets/logo.png')} resizeMode="cover" />
-
       <StyledButton
         text="To Characters"
         onClick={navScreenPush('Characters')}

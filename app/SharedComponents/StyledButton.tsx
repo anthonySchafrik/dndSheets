@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 
 import theme from '../theme';
 
@@ -9,7 +9,7 @@ interface Props {
   onClick: () => void;
 }
 
-const StyledButton = ({text, style = {}, onClick}: Props) => {
+const StyledButton = ({ text, style = {}, onClick }: Props) => {
   return (
     <TouchableNativeFeedback onPress={onClick}>
       <View style={[styles.container, style]}>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   text: {
-    color: 'white',
+    color: theme.font,
   },
 });
 
