@@ -1,25 +1,25 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './areas/Home';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-//todo remove once nav is done
-function DetailsScreen() {
-  return (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
+import HomeScreen from './areas/Home';
+import CharacterScreen from './areas/Character';
+import CharactersScreen from './areas/Characters';
+import CharacterCreateScreen from './areas/CharacterCreate';
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: undefined;
+  Character: undefined;
+  Characters: undefined;
+  CharacterCreate: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
+
+const defaultScreenOptions = {
+  headerTransparent: true,
+  title: '',
+};
 
 function Navigation() {
   return (
@@ -28,9 +28,23 @@ function Navigation() {
         <RootStack.Screen
           name="Home"
           component={HomeScreen}
-          options={{headerTransparent: true, title: ''}}
+          options={defaultScreenOptions}
         />
-        <RootStack.Screen name="Details" component={DetailsScreen} />
+        <RootStack.Screen
+          name="Character"
+          component={CharacterScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="Characters"
+          component={CharactersScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="CharacterCreate"
+          component={CharacterCreateScreen}
+          options={defaultScreenOptions}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
