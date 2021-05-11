@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AnyAction } from 'redux';
 
-import theme from '../../../theme';
 import { useAppDispatch } from '../../../redux/hooks';
+import theme from '../../../theme';
 
 interface Props {
   chars?: string[];

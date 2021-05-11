@@ -3,11 +3,10 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators } from 'redux';
-import { RootStackParamList } from '../../Navigation';
 
+import { RootStackParamList } from '../../Navigation';
 import { setSavedCharacters } from '../../redux/actions/characterActions';
 import { AppDispatch, AppState } from '../../redux/store';
-
 import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
 import CharacterList from './components/CharacterList';

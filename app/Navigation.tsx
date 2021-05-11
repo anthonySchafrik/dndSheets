@@ -6,18 +6,22 @@ import HomeScreen from './areas/Home';
 import CharacterScreen from './areas/Character';
 import CharactersScreen from './areas/Characters';
 import CharacterCreateScreen from './areas/CharacterCreate';
+import StatsScreen from './areas/CharacterCreate/components/Stats';
+// import theme from './theme';
 
 export type RootStackParamList = {
   Home: undefined;
   Character: undefined;
   Characters: undefined;
   CharacterCreate: undefined;
+  CreateStats: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const defaultScreenOptions = {
   headerTransparent: true,
+  // headerStyle: { backgroundColor: theme.background },
   title: '',
 };
 
@@ -28,7 +32,10 @@ function Navigation() {
         <RootStack.Screen
           name="Home"
           component={HomeScreen}
-          options={defaultScreenOptions}
+          options={{
+            ...defaultScreenOptions,
+            // headerStyle: { backgroundColor: 'black' },
+          }}
         />
         <RootStack.Screen
           name="Character"
@@ -43,6 +50,11 @@ function Navigation() {
         <RootStack.Screen
           name="CharacterCreate"
           component={CharacterCreateScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="CreateStats"
+          component={StatsScreen}
           options={defaultScreenOptions}
         />
       </RootStack.Navigator>

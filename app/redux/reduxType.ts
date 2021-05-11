@@ -1,6 +1,67 @@
 // Character types
+export interface Equipment {
+  cp: string;
+  sp: string;
+  ep: string;
+  gp: string;
+  pp: string;
+  text: string;
+}
+export interface Stats {
+  strength: { mult: string; stat: string };
+  dexterity: { mult: string; stat: string };
+  constitution: { mult: string; stat: string };
+  intelligence: { mult: string; stat: string };
+  wisdom: { mult: string; stat: string };
+  charisma: { mult: string; stat: string };
+}
+
+export interface SavingThrows {
+  strength: { mult: string; proficient: boolean };
+  dexterity: { mult: string; proficient: boolean };
+  constitution: { mult: string; proficient: boolean };
+  intelligence: { mult: string; proficient: boolean };
+  wisdom: { mult: string; proficient: boolean };
+  charisma: { mult: string; proficient: boolean };
+}
+
+export interface Skills {
+  acrobatics: { mult: string; proficient: boolean };
+  arcana: { mult: string; proficient: boolean };
+  deception: { mult: string; proficient: boolean };
+  insight: { mult: string; proficient: boolean };
+  investigation: { mult: string; proficient: boolean };
+  nature: { mult: string; proficient: boolean };
+  performance: { mult: string; proficient: boolean };
+  religion: { mult: string; proficient: boolean };
+  stealth: { mult: string; proficient: boolean };
+  'animal handling': { mult: string; proficient: boolean };
+  athletics: { mult: string; proficient: boolean };
+  history: { mult: string; proficient: boolean };
+  intimidation: { mult: string; proficient: boolean };
+  medicine: { mult: string; proficient: boolean };
+  perception: { mult: string; proficient: boolean };
+  persuasion: { mult: string; proficient: boolean };
+  'sleight of hand': { mult: string; proficient: boolean };
+  survival: { mult: string; proficient: boolean };
+}
 export interface CharacterState {
-  name?: string;
+  name: string;
+  class: string;
+  treasure: string;
+  equipment: Equipment;
+  stats: Stats;
+  inspiration: string;
+  'proficiency bonus': string;
+  savingThrows: SavingThrows;
+  'armor class': string;
+  initiative: string;
+  speed: string;
+  'hit points maximum': string;
+  'hit dice': string;
+  skills: Skills;
+  attacks: [];
+  spells: [];
 }
 export interface CharacterAction {
   type: string;
