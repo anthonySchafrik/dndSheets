@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
+import { AnyAction } from 'redux';
 import { bindActionCreators } from 'redux';
 
-// import { updateCreateCharacter } from '../actions/characters';
+import { updateCharacter } from '../../../redux/actions/characterActions';
+import { Equipment, UpdateCharacterPayload } from '../../../redux/reduxType';
+import { AppDispatch, AppState } from '../../../redux/store';
 import theme from '../../../theme';
 
-class EquipmentComponent extends Component {
+interface Props {
+  updateCharacter: (payload: UpdateCharacterPayload) => AnyAction;
+}
+
+interface State extends Equipment {}
+
+class EquipmentComponent extends Component<Props, State> {
   state = { cp: '', sp: '', ep: '', gp: '', pp: '', text: '' };
 
-  stateUpdater = (key, value) => {
+  stateUpdater = (key: string, value: string) => {
     const lowerCaseKey = key.toLowerCase();
 
     this.setState({ [lowerCaseKey]: value });
   };
 
   handleCharacterUpdate = () => {
-    const { state } = this;
-    // const { updateCreateCharacter } = this.props;
+    const {
+      state,
+      props: { updateCharacter },
+    } = this;
 
-    console.log({ text: 'equipment', update: state }); //updateCreateCharacter
+    updateCharacter({ key: 'equipment', value: state });
   };
 
-  buildRowContainer = texts => {
+  buildRowContainer = (texts: string[]) => {
     const { stateUpdater, handleCharacterUpdate } = this;
 
     return texts.map((x, i) => {
@@ -105,15 +116,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  // const { selectedCharacter } = state.character;
-  return {
-    // selectedCharacter,
-  };
+const mapStateToProps = (state: AppState) => {
+  console.log({ state });
+
+  return {};
 };
 
-const mapDispatchToProp = dispatch => {
-  return bindActionCreators({}, dispatch); //updateCreateCharacter
+const mapDispatchToProp = (dispatch: AppDispatch) => {
+  return bindActionCreators({ updateCharacter }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(EquipmentComponent);

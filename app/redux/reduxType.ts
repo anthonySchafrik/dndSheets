@@ -1,5 +1,6 @@
 // Character types
 export interface Equipment {
+  [key: string]: string;
   cp: string;
   sp: string;
   ep: string;
@@ -70,7 +71,7 @@ export interface CharacterAction {
 
 export interface UpdateCharacterPayload {
   key: string;
-  value?: string;
+  value?: string | Equipment;
 }
 
 export interface UpdateCharacter {

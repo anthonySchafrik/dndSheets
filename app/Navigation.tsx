@@ -6,7 +6,7 @@ import HomeScreen from './areas/Home';
 import CharacterScreen from './areas/Character';
 import CharactersScreen from './areas/Characters';
 import CharacterCreateScreen from './areas/CharacterCreate';
-import StatsScreen from './areas/CharacterCreate/components/Stats';
+import StatsScreen from './areas/CharacterCreate/screens/Stats';
 // import theme from './theme';
 
 export type RootStackParamList = {
