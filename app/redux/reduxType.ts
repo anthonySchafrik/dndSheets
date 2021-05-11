@@ -71,7 +71,7 @@ export interface CharacterAction {
 
 export interface UpdateCharacterPayload {
   key: string;
-  value?: string | Equipment;
+  value?: string | Equipment | Stats;
 }
 
 export interface UpdateCharacter {
