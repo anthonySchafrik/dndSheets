@@ -22,6 +22,7 @@ import StatRectangle from '../components/StatRectangle';
 // import InputBox from '../components/InputBox';
 import StyledButton from '../../../SharedComponents/StyledButton';
 import SavingThrowRow from '../components/SavingThrowRow';
+import InputBox from '../components/InputBox';
 
 type StatsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -37,6 +38,11 @@ interface State {
   [key: string]: string;
   'hit points maximum': string;
   'hit dice': string;
+}
+
+interface InputBoxes {
+  text: string;
+  style: object;
 }
 
 type StateUpdate = 'hit points maximum' | 'hit dice';
@@ -62,12 +68,12 @@ class StatScreen extends Component<Props, State> {
   buildSavingThrowRows = (throwsText: string[]) =>
     throwsText.map((text, i) => <SavingThrowRow key={i} text={text} />);
 
-  // buildInputBoxes = boxTexts =>
-  //   boxTexts.map((x, i) => {
-  //     const { text, style } = x;
+  buildInputBoxes = (boxTexts: InputBoxes[]) =>
+    boxTexts.map((x, i) => {
+      const { text, style } = x;
 
-  //     return <InputBox text={text} key={i} style={style} />;
-  //   });
+      return <InputBox text={text} key={i} style={style} />;
+    });
 
   navScreenPush = (screen: keyof RootStackParamList) => () => {
     const { navigation } = this.props;
@@ -76,15 +82,6 @@ class StatScreen extends Component<Props, State> {
   };
 
   render = () => {
-    const {
-      // buildStatBoxes,
-      // buildSavingThrowRows,
-      // buildInputBoxes,
-      // navScreenPush,
-      // handleStateUpdate,
-      // handleCharUpdate,
-    } = this;
-
     return (
       <KeyboardAvoidingView
         behavior="padding"
@@ -120,11 +117,11 @@ class StatScreen extends Component<Props, State> {
               </View>
 
               <View style={styles.boxRows}>
-                {/* {buildInputBoxes([
+                {this.buildInputBoxes([
                   { text: 'Armor Class', style: { paddingLeft: 15 } },
                   { text: 'Initiative', style: {} },
                   { text: 'Speed', style: {} },
-                ])} */}
+                ])}
               </View>
 
               <View style={styles.hitRow}>
