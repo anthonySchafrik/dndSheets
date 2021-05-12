@@ -7,38 +7,50 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import { bindActionCreators } from 'redux';
+import { AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-// import { updateCreateCharacter } from '../actions/characters';
-
+import { updateCharacter } from '../../../redux/actions/characterActions';
 import theme from '../../../theme';
 import StatBox from '../components/StatBox';
-// import StatRectangle from '../components/StatRectangle';
+import StatRectangle from '../components/StatRectangle';
 // import SavingThrowRow from '../components/SavingThrowRow';
 // import InputBox from '../components/InputBox';
 import StyledButton from '../../../SharedComponents/StyledButton';
+import { UpdateCharacterPayload } from '../../../redux/reduxType';
 
-class StatScreen extends Component {
+interface Props {
+  updateCharacter: (payload: UpdateCharacterPayload) => AnyAction;
+}
+
+interface State {
+  [key: string]: string;
+  'hit points maximum': string;
+  'hit dice': string;
+}
+
+type StateUpdate = 'hit points maximum' | 'hit dice';
+
+class StatScreen extends Component<Props, State> {
   state = { 'hit points maximum': '', 'hit dice': '' };
 
-  handleStateUpdate = (key, value) => {
+  handleStateUpdate = (key: StateUpdate, value: string) => {
     this.setState({ [key]: value });
   };
 
-  handleCharUpdate = key => () => {
-    // const { updateCreateCharacter } = this.props;
+  handleCharUpdate = (key: StateUpdate) => () => {
+    const { updateCharacter } = this.props;
     const { state } = this;
 
     const value = state[key];
-    console.log({ text: key, update: value }); //updateCreateCharacter
+    updateCharacter({ key, value });
   };
 
   buildStatBoxes = (statTexts: string[]) =>
     statTexts.map((stat, i) => <StatBox key={i} stat={stat} />);
 
-  // buildSavingThrowRows = throwsText =>
-  //   throwsText.map((text, i) => <SavingThrowRow key={i} text={text} />);
+  // buildSavingThrowRows = (throwsText: string[]) => {};
+  // throwsText.map((text, i) => <SavingThrowRow key={i} text={text} />);
 
   // buildInputBoxes = boxTexts =>
   //   boxTexts.map((x, i) => {
@@ -81,11 +93,11 @@ class StatScreen extends Component {
             </View>
 
             <View>
-              {/* <StatRectangle text="Inspiration" outline="box" />
-              <StatRectangle text="Proficiency Bonus" outline="circle" /> */}
+              <StatRectangle text="Inspiration" outline="box" />
+              <StatRectangle text="Proficiency Bonus" outline="circle" />
 
               <View style={styles.savingRow}>
-                {/* {buildSavingThrowRows([
+                {/* {this.buildSavingThrowRows([
                   'Strength',
                   'Dexterity',
                   'Constitution',
@@ -188,7 +200,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProp = dispatch => {
-  return bindActionCreators({}, dispatch); //updateCreateCharacter
+  return bindActionCreators({ updateCharacter }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(StatScreen);
