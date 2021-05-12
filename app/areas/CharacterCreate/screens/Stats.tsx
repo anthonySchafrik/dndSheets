@@ -9,17 +9,26 @@ import {
 } from 'react-native';
 import { AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { updateCharacter } from '../../../redux/actions/characterActions';
+import { UpdateCharacterPayload } from '../../../redux/reduxType';
+import { RootStackParamList } from '../../../Navigation';
+import { AppDispatch, AppState } from '../../../redux/store';
 import theme from '../../../theme';
 import StatBox from '../components/StatBox';
 import StatRectangle from '../components/StatRectangle';
 // import SavingThrowRow from '../components/SavingThrowRow';
 // import InputBox from '../components/InputBox';
 import StyledButton from '../../../SharedComponents/StyledButton';
-import { UpdateCharacterPayload } from '../../../redux/reduxType';
+
+type StatsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'CreateStats'
+>;
 
 interface Props {
+  navigation: StatsScreenNavigationProp;
   updateCharacter: (payload: UpdateCharacterPayload) => AnyAction;
 }
 
@@ -59,9 +68,10 @@ class StatScreen extends Component<Props, State> {
   //     return <InputBox text={text} key={i} style={style} />;
   //   });
 
-  navScreenPush = screen => {
-    // const { navigation } = this.props;
-    // navigation.push(screen);
+  navScreenPush = (screen: keyof RootStackParamList) => () => {
+    const { navigation } = this.props;
+
+    navigation.push(screen);
   };
 
   render = () => {
@@ -69,9 +79,9 @@ class StatScreen extends Component<Props, State> {
       // buildStatBoxes,
       // buildSavingThrowRows,
       // buildInputBoxes,
-      navScreenPush,
-      handleStateUpdate,
-      handleCharUpdate,
+      // navScreenPush,
+      // handleStateUpdate,
+      // handleCharUpdate,
     } = this;
 
     return (
@@ -123,9 +133,9 @@ class StatScreen extends Component<Props, State> {
                     style={styles.styledTextInput}
                     placeholder="Mult"
                     onChangeText={text =>
-                      handleStateUpdate('hit points maximum', text)
+                      this.handleStateUpdate('hit points maximum', text)
                     }
-                    onEndEditing={handleCharUpdate('hit points maximum')}
+                    onEndEditing={this.handleCharUpdate('hit points maximum')}
                   />
                 </View>
                 <View style={styles.row}>
@@ -133,16 +143,18 @@ class StatScreen extends Component<Props, State> {
                   <TextInput
                     style={styles.styledTextInput}
                     placeholder="Mult"
-                    onChangeText={text => handleStateUpdate('hit dice', text)}
-                    onEndEditing={handleCharUpdate('hit dice')}
+                    onChangeText={text =>
+                      this.handleStateUpdate('hit dice', text)
+                    }
+                    onEndEditing={this.handleCharUpdate('hit dice')}
                   />
                 </View>
               </View>
 
-              <View style={{ paddingLeft: 25 }}>
+              <View style={styles.buttonContainer}>
                 <StyledButton
                   style={styles.styledButton}
-                  onClick={this.navScreenPush('Home')}
+                  onClick={this.navScreenPush('CreateSkills')}
                   text="Skills"
                 />
               </View>
@@ -190,16 +202,16 @@ const styles = StyleSheet.create({
     marginTop: 30,
     backgroundColor: theme.secondary,
   },
+  buttonContainer: { paddingLeft: 25 },
 });
 
-const mapStateToProps = state => {
-  // const { createCharacter } = state.character;
-  return {
-    //  createCharacter
-  };
+const mapStateToProps = (state: AppState) => {
+  console.log({ state });
+
+  return {};
 };
 
-const mapDispatchToProp = dispatch => {
+const mapDispatchToProp = (dispatch: AppDispatch) => {
   return bindActionCreators({ updateCharacter }, dispatch);
 };
 
