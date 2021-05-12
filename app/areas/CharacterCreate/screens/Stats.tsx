@@ -21,6 +21,7 @@ import StatRectangle from '../components/StatRectangle';
 // import SavingThrowRow from '../components/SavingThrowRow';
 // import InputBox from '../components/InputBox';
 import StyledButton from '../../../SharedComponents/StyledButton';
+import SavingThrowRow from '../components/SavingThrowRow';
 
 type StatsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -58,8 +59,8 @@ class StatScreen extends Component<Props, State> {
   buildStatBoxes = (statTexts: string[]) =>
     statTexts.map((stat, i) => <StatBox key={i} stat={stat} />);
 
-  // buildSavingThrowRows = (throwsText: string[]) => {};
-  // throwsText.map((text, i) => <SavingThrowRow key={i} text={text} />);
+  buildSavingThrowRows = (throwsText: string[]) =>
+    throwsText.map((text, i) => <SavingThrowRow key={i} text={text} />);
 
   // buildInputBoxes = boxTexts =>
   //   boxTexts.map((x, i) => {
@@ -107,14 +108,14 @@ class StatScreen extends Component<Props, State> {
               <StatRectangle text="Proficiency Bonus" outline="circle" />
 
               <View style={styles.savingRow}>
-                {/* {this.buildSavingThrowRows([
+                {this.buildSavingThrowRows([
                   'Strength',
                   'Dexterity',
                   'Constitution',
                   'Intelligence',
                   'Wisdom',
                   'Charisma',
-                ])} */}
+                ])}
                 <Text style={{ color: theme.font }}>Saving Throws</Text>
               </View>
 
