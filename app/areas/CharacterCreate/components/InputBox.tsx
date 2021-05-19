@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 78,
     backgroundColor: theme.secondary,
-    marginVertical: 5,
+    marginVertical: 7,
     alignItems: 'center',
     justifyContent: 'center',
   },

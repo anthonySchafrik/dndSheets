@@ -116,9 +116,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state: AppState) => {
-  console.log({ state });
-
+const mapStateToProps = () => {
   return {};
 };
 

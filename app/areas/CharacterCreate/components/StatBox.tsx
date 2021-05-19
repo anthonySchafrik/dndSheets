@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { Text, StyleSheet, TextInput } from 'react-native';
+import { Grid, Row } from 'react-native-easy-grid';
 
 import { updateCharacter } from '../../../redux/actions/characterActions';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -30,17 +31,21 @@ const StatBox = ({ stat }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.styledText}>{stat}</Text>
-      <TextInput
-        style={styles.styledText}
-        placeholder="Mult"
-        placeholderTextColor={theme.font}
-        onChangeText={text => handleUpdateMult(text)}
-        onEndEditing={handleCharacterUpdate}
-        value={updateMult}
-      />
-      <View style={styles.circleOutLine}>
+    <Grid style={styles.container}>
+      <Row>
+        <Text style={styles.styledText}>{stat}</Text>
+      </Row>
+      <Row>
+        <TextInput
+          style={styles.styledText}
+          placeholder="Mult"
+          placeholderTextColor={theme.font}
+          onChangeText={text => handleUpdateMult(text)}
+          onEndEditing={handleCharacterUpdate}
+          value={updateMult}
+        />
+      </Row>
+      <Row>
         <TextInput
           style={styles.statText}
           placeholder="stat"
@@ -49,29 +54,19 @@ const StatBox = ({ stat }: Props) => {
           onEndEditing={handleCharacterUpdate}
           value={updateStat}
         />
-      </View>
-    </View>
+      </Row>
+    </Grid>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 80,
     width: 80,
     backgroundColor: theme.secondary,
     marginVertical: 5,
     alignItems: 'center',
   },
-  styledText: { color: theme.font },
-  circleOutLine: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: theme.primary,
-    borderWidth: 1,
-    borderRadius: 25,
-    width: 40,
-    height: 30,
-  },
+  styledText: { color: theme.font, fontSize: 12 },
   statText: {
     color: theme.font,
     paddingLeft: 5,

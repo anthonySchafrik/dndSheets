@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
-  KeyboardAvoidingView,
   Text,
   ScrollView,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -18,8 +18,6 @@ import { AppDispatch, AppState } from '../../../redux/store';
 import theme from '../../../theme';
 import StatBox from '../components/StatBox';
 import StatRectangle from '../components/StatRectangle';
-// import SavingThrowRow from '../components/SavingThrowRow';
-// import InputBox from '../components/InputBox';
 import StyledButton from '../../../SharedComponents/StyledButton';
 import SavingThrowRow from '../components/SavingThrowRow';
 import InputBox from '../components/InputBox';
@@ -83,14 +81,25 @@ class StatScreen extends Component<Props, State> {
 
   render = () => {
     return (
-      <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={80}
-        style={styles.screen}>
-        <ScrollView>
-          <View style={styles.container}>
-            <View>
-              {this.buildStatBoxes([
+      <KeyboardAvoidingView behavior="padding" style={styles.screen}>
+        <View style={styles.container}>
+          <View style={styles.statBoxes}>
+            {this.buildStatBoxes([
+              'Strength',
+              'Dexterity',
+              'Constitution',
+              'Intelligence',
+              'Wisdom',
+              'Charisma',
+            ])}
+          </View>
+
+          <View>
+            <StatRectangle text="Inspiration" outline="box" />
+            <StatRectangle text="Proficiency Bonus" outline="circle" />
+
+            <View style={styles.savingRow}>
+              {this.buildSavingThrowRows([
                 'Strength',
                 'Dexterity',
                 'Constitution',
@@ -98,67 +107,51 @@ class StatScreen extends Component<Props, State> {
                 'Wisdom',
                 'Charisma',
               ])}
+              <Text style={{ color: theme.font }}>Saving Throws</Text>
             </View>
 
-            <View>
-              <StatRectangle text="Inspiration" outline="box" />
-              <StatRectangle text="Proficiency Bonus" outline="circle" />
+            <View style={styles.boxRows}>
+              {this.buildInputBoxes([
+                { text: 'Armor Class', style: { paddingLeft: 15 } },
+                { text: 'Initiative', style: {} },
+                { text: 'Speed', style: {} },
+              ])}
+            </View>
 
-              <View style={styles.savingRow}>
-                {this.buildSavingThrowRows([
-                  'Strength',
-                  'Dexterity',
-                  'Constitution',
-                  'Intelligence',
-                  'Wisdom',
-                  'Charisma',
-                ])}
-                <Text style={{ color: theme.font }}>Saving Throws</Text>
+            <View style={styles.hitRow}>
+              <View style={styles.row}>
+                <Text style={{ color: theme.font }}>Hit Points Maximum</Text>
+                <TextInput
+                  style={styles.styledTextInput}
+                  placeholder="Mult"
+                  onChangeText={text =>
+                    this.handleStateUpdate('hit points maximum', text)
+                  }
+                  onEndEditing={this.handleCharUpdate('hit points maximum')}
+                />
               </View>
-
-              <View style={styles.boxRows}>
-                {this.buildInputBoxes([
-                  { text: 'Armor Class', style: { paddingLeft: 15 } },
-                  { text: 'Initiative', style: {} },
-                  { text: 'Speed', style: {} },
-                ])}
-              </View>
-
-              <View style={styles.hitRow}>
-                <View style={styles.row}>
-                  <Text style={{ color: theme.font }}>Hit Points Maximum</Text>
-                  <TextInput
-                    style={styles.styledTextInput}
-                    placeholder="Mult"
-                    onChangeText={text =>
-                      this.handleStateUpdate('hit points maximum', text)
-                    }
-                    onEndEditing={this.handleCharUpdate('hit points maximum')}
-                  />
-                </View>
-                <View style={styles.row}>
-                  <Text style={{ color: theme.font }}>Hit Dice</Text>
-                  <TextInput
-                    style={styles.styledTextInput}
-                    placeholder="Mult"
-                    onChangeText={text =>
-                      this.handleStateUpdate('hit dice', text)
-                    }
-                    onEndEditing={this.handleCharUpdate('hit dice')}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.buttonContainer}>
-                <StyledButton
-                  style={styles.styledButton}
-                  onClick={this.navScreenPush('CreateSkills')}
-                  text="Skills"
+              <View style={styles.row}>
+                <Text style={{ color: theme.font }}>Hit Dice</Text>
+                <TextInput
+                  style={styles.styledTextInput}
+                  placeholder="Mult"
+                  onChangeText={text =>
+                    this.handleStateUpdate('hit dice', text)
+                  }
+                  onEndEditing={this.handleCharUpdate('hit dice')}
                 />
               </View>
             </View>
+
+            <View style={styles.buttonContainer}>
+              <StyledButton
+                style={styles.styledButton}
+                onClick={this.navScreenPush('CreateSkills')}
+                text="Skills"
+              />
+            </View>
           </View>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     );
   };
@@ -173,7 +166,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
+  statBoxes: { height: 650 },
   savingRow: {
+    height: 270,
     backgroundColor: theme.secondary,
     alignItems: 'center',
   },
@@ -204,8 +199,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: AppState) => {
-  console.log({ state });
-
   return {};
 };
 
