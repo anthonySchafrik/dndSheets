@@ -32,7 +32,7 @@ const StatBox = ({ stat }: Props) => {
 
   return (
     <Grid style={styles.container}>
-      <Row>
+      <Row style={styles.rowHeight}>
         <Text style={styles.styledText}>{stat}</Text>
       </Row>
       <Row>
@@ -63,13 +63,16 @@ const styles = StyleSheet.create({
   container: {
     width: 80,
     backgroundColor: theme.secondary,
-    marginVertical: 5,
+    marginVertical: 3,
     alignItems: 'center',
   },
-  styledText: { color: theme.font, fontSize: 12 },
+  styledText: { color: theme.font },
   statText: {
     color: theme.font,
-    paddingLeft: 5,
+    paddingLeft: 6,
+  },
+  rowHeight: {
+    height: 20,
   },
 });
 

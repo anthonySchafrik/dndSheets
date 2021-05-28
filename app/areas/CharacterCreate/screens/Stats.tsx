@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  statBoxes: { height: 650 },
+  statBoxes: { height: 600 },
   savingRow: {
     height: 270,
     backgroundColor: theme.secondary,
