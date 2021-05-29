@@ -46,6 +46,8 @@ class EquipmentComponent extends Component<Props, State> {
             onChangeText={text => stateUpdater(x, text)}
             onEndEditing={handleCharacterUpdate}
             keyboardType="numeric"
+            placeholderTextColor={theme.font}
+            placeholder="Amount"
           />
         </View>
       );
@@ -70,7 +72,9 @@ class EquipmentComponent extends Component<Props, State> {
           <View style={styles.inputContainer}>
             <TextInput
               onChangeText={t => stateUpdater('text', t)}
+              placeholderTextColor={theme.font}
               style={styles.styledTextInput}
+              placeholder="Other"
               multiline={true}
               onEndEditing={handleCharacterUpdate}
             />
@@ -110,8 +114,6 @@ const styles = StyleSheet.create({
     width: '75%',
   },
   styledTextInput: {
-    borderColor: theme.primary,
-    borderBottomWidth: 1,
     color: theme.font,
   },
 });

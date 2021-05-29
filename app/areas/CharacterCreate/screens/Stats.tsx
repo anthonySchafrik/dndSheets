@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   Text,
-  ScrollView,
   TextInput,
   KeyboardAvoidingView,
 } from 'react-native';
@@ -94,9 +93,9 @@ class StatScreen extends Component<Props, State> {
             ])}
           </View>
 
-          <View>
-            <StatRectangle text="Inspiration" outline="box" />
-            <StatRectangle text="Proficiency Bonus" outline="circle" />
+          <View style={styles.rightContainer}>
+            <StatRectangle text="Inspiration" />
+            <StatRectangle text="Proficiency Bonus" />
 
             <View style={styles.savingRow}>
               {this.buildSavingThrowRows([
@@ -166,7 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  statBoxes: { height: 600 },
+  statBoxes: { height: 600, paddingTop: 35 },
   savingRow: {
     height: 270,
     backgroundColor: theme.secondary,
@@ -196,6 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.secondary,
   },
   buttonContainer: { paddingLeft: 25 },
+  rightContainer: { paddingTop: 15 },
 });
 
 const mapStateToProps = (state: AppState) => {

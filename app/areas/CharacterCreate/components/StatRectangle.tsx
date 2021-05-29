@@ -7,10 +7,9 @@ import theme from '../../../theme';
 
 interface Props {
   text: string;
-  outline: 'circle' | 'box';
 }
 
-const StatRectangle = ({ text, outline }: Props) => {
+const StatRectangle = ({ text }: Props) => {
   const dispatch = useAppDispatch();
 
   const [update, handleUpdate] = useState('');
@@ -20,17 +19,15 @@ const StatRectangle = ({ text, outline }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles[outline]}>
-        <TextInput
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{ paddingLeft: update.length > 0 ? 6 : 0, color: theme.font }}
-          placeholder="Mult"
-          value={update}
-          placeholderTextColor={theme.font}
-          onChangeText={text => handleUpdate(text)}
-          onEndEditing={handleCharacterUpdate}
-        />
-      </View>
+      <TextInput
+        // eslint-disable-next-line react-native/no-inline-styles
+        style={{ paddingLeft: update.length > 0 ? 6 : 0, color: theme.font }}
+        placeholder="Mult"
+        value={update}
+        placeholderTextColor={theme.font}
+        onChangeText={text => handleUpdate(text)}
+        onEndEditing={handleCharacterUpdate}
+      />
       <Text style={{ color: theme.font }}>{text}</Text>
     </View>
   );

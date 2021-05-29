@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
 
 import { updateCharacter } from '../redux/actions/characterActions';
 import { useAppDispatch } from '../redux/hooks';
@@ -18,11 +18,12 @@ const InputComponent = ({ text }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ color: theme.font }}>{text}</Text>
       <TextInput
         style={styles.input}
         onChangeText={text => handleUpdate(text)}
         onEndEditing={handleCharacterUpdate}
+        placeholder={text}
+        placeholderTextColor={theme.font}
       />
     </View>
   );
@@ -34,11 +35,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    borderBottomColor: theme.secondary,
-    borderBottomWidth: 1,
     color: theme.font,
-    width: '45%',
-    textAlign: 'center',
   },
 });
 
