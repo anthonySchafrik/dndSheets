@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   statBoxes: { height: 600, paddingTop: 35 },
   savingRow: {
-    height: 270,
+    height: 290,
     backgroundColor: theme.secondary,
     alignItems: 'center',
   },
@@ -176,22 +176,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   hitRow: {
-    paddingTop: 3,
+    paddingTop: 1,
     backgroundColor: theme.secondary,
   },
   row: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 3,
     paddingLeft: 5,
     paddingRight: 5,
   },
-  styledTextInput: {
-    borderBottomColor: theme.primary,
-    borderBottomWidth: 1,
-  },
+  styledTextInput: {},
   styledButton: {
-    marginTop: 30,
+    marginTop: 15,
     backgroundColor: theme.secondary,
   },
   buttonContainer: { paddingLeft: 25 },

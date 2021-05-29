@@ -89,8 +89,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   styledInput: {
-    borderColor: theme.primary,
-    borderBottomWidth: 1,
     width: '35%',
     color: theme.font,
   },
