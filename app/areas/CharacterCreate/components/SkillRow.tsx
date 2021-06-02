@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Col, Grid } from 'react-native-easy-grid';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { AppDispatch, AppState } from '../../../redux/store';
+import { AppState } from '../../../redux/store';
 
 import { updateCharacter } from '../../../redux/actions/characterActions';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import theme from '../../../theme';
 
-const SkillRow = ({ text, updateCharacter, subText, skills }) => {
+interface Props {
+  text: string;
+  subText: string;
+}
+
+const SkillRow = ({ text, subText }: Props) => {
+  const dispatch = useAppDispatch();
+
+  const { skills } = useAppSelector((state: AppState) => state.character);
+
   const [proficient, handleProficient] = useState(false);
   const [updateMult, handleUpdateMult] = useState('');
 
@@ -17,23 +25,32 @@ const SkillRow = ({ text, updateCharacter, subText, skills }) => {
   const handleCharacterUpdate = () => {
     const key = text.toLowerCase();
 
-    updateCharacter({
-      text: 'skills',
-      update: {
-        ...skills,
-        [key]: { mult: updateMult, proficient },
-      },
-    });
+    dispatch(
+      updateCharacter({
+        key: 'skills',
+        value: {
+          ...skills,
+          [key]: { mult: updateMult, proficient },
+        },
+      }),
+    );
   };
+
+  useEffect(() => {
+    handleCharacterUpdate();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proficient]);
 
   return (
     <View style={styles.container}>
-      <Grid style={{ alignItems: 'center' }}>
+      <Grid style={styles.gridContainer}>
         <Col size={8}>
           <View
+            // eslint-disable-next-line react-native/no-inline-styles
             style={{
               ...styles.circle,
-              backgroundColor: proficient ? 'black' : null,
+              backgroundColor: proficient ? 'black' : theme.background,
             }}>
             <Text onPress={setProficient} />
           </View>
@@ -47,9 +64,7 @@ const SkillRow = ({ text, updateCharacter, subText, skills }) => {
             onEndEditing={handleCharacterUpdate}
           />
         </Col>
-        <Col
-          size={35}
-          style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Col size={35} style={styles.rowItem}>
           <Text style={styles.styledText}>{text}</Text>
         </Col>
         <Col size={13}>
@@ -76,23 +91,17 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   styledTextInput: {
-    // borderBottomColor: theme.primary,
-    // borderBottomWidth: 1,
     color: theme.font,
   },
   styledText: {
     fontSize: 12,
     color: theme.font,
   },
+  gridContainer: { alignItems: 'center' },
+  rowItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
-const mapStateToProps = (state: AppState) => {
-  const { skills } = state.character;
-  return { skills };
-};
-
-const mapDispatchToProp = (dispatch: AppDispatch) => {
-  return bindActionCreators({ updateCharacter }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProp)(SkillRow);
+export default SkillRow;

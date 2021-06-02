@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.background,
     width: '100%',
+    paddingTop: 25,
   },
   container: {
     flexDirection: 'row',
