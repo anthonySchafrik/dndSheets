@@ -13,7 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { updateCharacter } from '../../../redux/actions/characterActions';
 import { UpdateCharacterPayload } from '../../../redux/reduxType';
 import { RootStackParamList } from '../../../Navigation';
-import { AppDispatch, AppState } from '../../../redux/store';
+import { AppDispatch } from '../../../redux/store';
 import theme from '../../../theme';
 import StatBox from '../components/StatBox';
 import StatRectangle from '../components/StatRectangle';
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   rightContainer: { paddingTop: 15 },
 });
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = () => {
   return {};
 };
 

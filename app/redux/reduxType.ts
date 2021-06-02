@@ -46,6 +46,12 @@ export interface Skills {
   'sleight of hand': { mult: string; proficient: boolean };
   survival: { mult: string; proficient: boolean };
 }
+
+export interface CharacterAttacks {
+  name: string;
+  bonus: string;
+  damage: string;
+}
 export interface CharacterState {
   name: string;
   class: string;
@@ -61,7 +67,7 @@ export interface CharacterState {
   'hit points maximum': string;
   'hit dice': string;
   skills: Skills;
-  attacks: [];
+  attacks: CharacterAttacks[];
   spells: [];
 }
 export interface CharacterAction {
@@ -71,7 +77,13 @@ export interface CharacterAction {
 
 export interface UpdateCharacterPayload {
   key: string;
-  value?: string | Equipment | Stats | SavingThrows | Skills;
+  value?:
+    | string
+    | Equipment
+    | Stats
+    | SavingThrows
+    | Skills
+    | CharacterAttacks[];
 }
 
 export interface UpdateCharacter {

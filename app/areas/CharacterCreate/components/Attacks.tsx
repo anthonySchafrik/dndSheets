@@ -2,13 +2,30 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { Grid, Col } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { AnyAction, bindActionCreators } from 'redux';
 
 import { updateCharacter } from '../../../redux/actions/characterActions';
+import {
+  CharacterAttacks,
+  UpdateCharacterPayload,
+} from '../../../redux/reduxType';
 import { AppDispatch, AppState } from '../../../redux/store';
 import theme from '../../../theme';
 
-class Attacks extends Component {
+interface State {
+  [key: string]: string;
+  name: string;
+  bonus: string;
+  damage: string;
+}
+
+interface Props {
+  rowItem?: CharacterAttacks;
+  attacks: CharacterAttacks[];
+  updateCharacter: (payload: UpdateCharacterPayload) => AnyAction;
+}
+
+class Attacks extends Component<Props, State> {
   state = {
     name: '',
     bonus: '',
@@ -17,11 +34,13 @@ class Attacks extends Component {
 
   componentDidMount = () => {
     if (this.props.rowItem) {
+      // eslint-disable-next-line react/no-did-mount-set-state
       this.setState(this.props.rowItem);
     }
   };
 
-  stateUpdater = (key, value) => this.setState({ [key]: value });
+  stateUpdater = (key: keyof State, value: string) =>
+    this.setState({ [key]: value });
 
   handleCharacterUpdate = () => {
     const { attacks, updateCharacter } = this.props;
@@ -29,8 +48,8 @@ class Attacks extends Component {
 
     if (name !== '' && bonus !== '' && damage !== '') {
       updateCharacter({
-        text: 'attacks',
-        update: [...attacks, { name, bonus, damage }],
+        key: 'attacks',
+        value: [...attacks, { name, bonus, damage }],
       });
     }
     return;

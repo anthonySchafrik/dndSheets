@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { updateCharacter } from '../../../redux/actions/characterActions';
 import { Equipment, UpdateCharacterPayload } from '../../../redux/reduxType';
-import { AppDispatch, AppState } from '../../../redux/store';
+import { AppDispatch } from '../../../redux/store';
 import theme from '../../../theme';
 
 interface Props {
