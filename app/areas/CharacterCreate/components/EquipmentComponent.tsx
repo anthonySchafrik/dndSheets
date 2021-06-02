@@ -74,7 +74,7 @@ class EquipmentComponent extends Component<Props, State> {
               onChangeText={t => stateUpdater('text', t)}
               placeholderTextColor={theme.font}
               style={styles.styledTextInput}
-              placeholder="Other"
+              placeholder="Other Equipment"
               multiline={true}
               onEndEditing={handleCharacterUpdate}
             />

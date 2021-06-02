@@ -8,6 +8,7 @@ import CharactersScreen from './areas/Characters';
 import CharacterCreateScreen from './areas/CharacterCreate';
 import StatsScreen from './areas/CharacterCreate/screens/Stats';
 import SkillsScreen from './areas/CharacterCreate/screens/Skills';
+import SpellScreen from './areas/CharacterCreate/components/Spells';
 // import theme from './theme';
 
 export type RootStackParamList = {
@@ -17,6 +18,7 @@ export type RootStackParamList = {
   CharacterCreate: undefined;
   CreateStats: undefined;
   CreateSkills: undefined;
+  CreateSpells: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
@@ -62,6 +64,11 @@ function Navigation() {
         <RootStack.Screen
           name="CreateSkills"
           component={SkillsScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="CreateSpells"
+          component={SpellScreen}
           options={defaultScreenOptions}
         />
       </RootStack.Navigator>
