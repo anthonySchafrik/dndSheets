@@ -8,7 +8,7 @@ import CharactersScreen from './areas/Characters';
 import CharacterCreateScreen from './areas/CharacterCreate';
 import StatsScreen from './areas/CharacterCreate/screens/Stats';
 import SkillsScreen from './areas/CharacterCreate/screens/Skills';
-import SpellScreen from './areas/CharacterCreate/components/Spells';
+import SpellListScreen from './areas/CharacterCreate/screens/SpellListScreen';
 // import theme from './theme';
 
 export type RootStackParamList = {
@@ -68,7 +68,7 @@ function Navigation() {
         />
         <RootStack.Screen
           name="CreateSpells"
-          component={SpellScreen}
+          component={SpellListScreen}
           options={defaultScreenOptions}
         />
       </RootStack.Navigator>

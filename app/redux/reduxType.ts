@@ -52,6 +52,14 @@ export interface CharacterAttacks {
   bonus: string;
   damage: string;
 }
+
+export interface CharacterSpells {
+  spellClass: string;
+  ability: string;
+  save: string;
+  bonus: string;
+  description: string;
+}
 export interface CharacterState {
   name: string;
   class: string;
@@ -68,7 +76,7 @@ export interface CharacterState {
   'hit dice': string;
   skills: Skills;
   attacks: CharacterAttacks[];
-  spells: [];
+  spells: CharacterSpells[];
 }
 export interface CharacterAction {
   type: string;
