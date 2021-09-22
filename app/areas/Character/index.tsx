@@ -1,6 +1,81 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
+import { DrawerPramList } from '../../Navigation';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-export default function CharacterScreen() {
-  return <Text>CharacterScreen</Text>;
+import StyledButton from '../../SharedComponents/StyledButton';
+import theme from '../../theme';
+
+type CharacterScreenNavigationProp = DrawerNavigationProp<
+  DrawerPramList,
+  'Character'
+>;
+
+enum Screens {
+  'Stats',
+  'Attacks',
+  'Equipment',
+  'Spells',
 }
+
+type Props = {
+  navigation: CharacterScreenNavigationProp;
+};
+
+export default function CharacterScreen({ navigation }: Props) {
+  const buildTiles = (texts: string[]) => {
+    return texts.map((text: string, i) => {
+      return (
+        <TouchableNativeFeedback
+          key={i}
+          onPress={() => navigation.navigate(text)}>
+          <View style={styles.tile}>
+            <Text>{text}</Text>
+          </View>
+        </TouchableNativeFeedback>
+      );
+    });
+  };
+
+  return (
+    <View style={styles.screen}>
+      <View style={styles.container}>
+        <View style={styles.tilesContainer}>
+          <View>{buildTiles(['Stats', 'Attacks'])}</View>
+          <View>{buildTiles(['Equipment', 'Spells'])}</View>
+        </View>
+        <StyledButton
+          text="Characters"
+          onClick={() => console.log('clicked')}
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: 'flex-start',
+    backgroundColor: theme.background,
+    padding: 10,
+  },
+  container: {
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '100%',
+  },
+  tilesContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  tile: {
+    backgroundColor: theme.primary,
+    height: 100,
+    width: 100,
+    marginVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
