@@ -6,18 +6,26 @@ import HomeScreen from './areas/Home';
 import CharacterScreen from './areas/Character';
 import CharactersScreen from './areas/Characters';
 import CharacterCreateScreen from './areas/CharacterCreate';
+import StatsScreen from './areas/CharacterCreate/screens/Stats';
+import SkillsScreen from './areas/CharacterCreate/screens/Skills';
+import SpellListScreen from './areas/CharacterCreate/screens/SpellListScreen';
+// import theme from './theme';
 
 export type RootStackParamList = {
   Home: undefined;
   Character: undefined;
   Characters: undefined;
   CharacterCreate: undefined;
+  CreateStats: undefined;
+  CreateSkills: undefined;
+  CreateSpells: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const defaultScreenOptions = {
   headerTransparent: true,
+  // headerStyle: { backgroundColor: theme.background },
   title: '',
 };
 
@@ -28,7 +36,10 @@ function Navigation() {
         <RootStack.Screen
           name="Home"
           component={HomeScreen}
-          options={defaultScreenOptions}
+          options={{
+            ...defaultScreenOptions,
+            // headerStyle: { backgroundColor: 'black' },
+          }}
         />
         <RootStack.Screen
           name="Character"
@@ -43,6 +54,21 @@ function Navigation() {
         <RootStack.Screen
           name="CharacterCreate"
           component={CharacterCreateScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="CreateStats"
+          component={StatsScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="CreateSkills"
+          component={SkillsScreen}
+          options={defaultScreenOptions}
+        />
+        <RootStack.Screen
+          name="CreateSpells"
+          component={SpellListScreen}
           options={defaultScreenOptions}
         />
       </RootStack.Navigator>

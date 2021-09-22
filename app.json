@@ -1,4 +1,10 @@
 {
   "name": "dndSheets",
-  "displayName": "dndSheets"
+  "displayName": "dndSheets",
+  "orientation": "portrait",
+  "splash": {
+    "image": "./assets/falling.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#181818"
+  }
 }
