@@ -91,7 +91,8 @@ export interface UpdateCharacterPayload {
     | Stats
     | SavingThrows
     | Skills
-    | CharacterAttacks[];
+    | CharacterAttacks[]
+    | CharacterSpells[];
 }
 
 export interface UpdateCharacter {
