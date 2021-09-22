@@ -1,17 +1,5 @@
-// import React from 'react';
-// import { View, Text } from 'react-native';
-
-// const SpellListScreen = () => {
-//   return (
-//     <View>
-//       <Text>This is the spell Screen</Text>
-//     </View>
-//   );
-// };
-
-// export default SpellListScreen;
-
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -39,8 +27,7 @@ const SpellListScreen = ({ navigation }: Props) => {
     const name = character.name;
 
     try {
-      // await AsyncStorage.setItem(name, JSON.stringify(character));
-      console.log({ name, character });
+      await AsyncStorage.setItem(name, JSON.stringify(character));
 
       navigation.replace('Characters');
     } catch (error) {

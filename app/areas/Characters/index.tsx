@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators } from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { RootStackParamList } from '../../Navigation';
 import { setSavedCharacters } from '../../redux/actions/characterActions';
@@ -39,10 +40,11 @@ class CharactersScreen extends Component<Props, State> {
   getSavedCharacters = async () => {
     const { setSavedCharacters } = this.props;
     try {
-      // const keys = await AsyncStorage.getAllKeys();
-      // if (keys !== null) {
-      setSavedCharacters(['Schaf', 'Tiedie']);
-      // }
+      const keys = await AsyncStorage.getAllKeys();
+
+      if (keys !== null) {
+        setSavedCharacters(keys);
+      }
     } catch (error) {
       console.log(error);
     }

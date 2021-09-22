@@ -102,7 +102,7 @@ class Spell extends Component<Props, State> {
         <View style={styles.spellDescription}>
           <Text style={{ color: theme.font }}>Spell Description</Text>
           <TextInput
-            style={{ ...styles.styledInput, borderWidth: 1 }}
+            style={styles.styledInput}
             multiline={true}
             onChangeText={text => stateUpdater('description', text)}
             onEndEditing={handleCharacterUpdate}
