@@ -6,8 +6,12 @@ import { AnyAction, bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { RootStackParamList } from '../../Navigation';
-import { setSavedCharacters } from '../../redux/actions/characterActions';
+import {
+  setSavedCharacters,
+  setSelectedCharacter,
+} from '../../redux/actions/characterActions';
 import { AppDispatch, AppState } from '../../redux/store';
+import { CharacterState } from '../../redux/reduxType';
 import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
 import CharacterList from './components/CharacterList';
@@ -19,8 +23,9 @@ type CharactersScreenNavigationProp = StackNavigationProp<
 
 type Props = {
   navigation: CharactersScreenNavigationProp;
-  setSavedCharacters: (payload: string[]) => AnyAction;
   characterList: string[];
+  setSavedCharacters: (payload: string[]) => AnyAction;
+  setSelectedCharacter: (payload: CharacterState) => AnyAction;
 };
 
 interface State {}
@@ -63,6 +68,7 @@ class CharactersScreen extends Component<Props, State> {
             chars={characterList}
             navScreenPush={this.navScreenPush('Character')}
             setSavedCharacters={setSavedCharacters}
+            setSelectedCharacter={setSelectedCharacter}
           />
         </View>
         <View>
@@ -98,7 +104,10 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProp = (dispatch: AppDispatch) => {
-  return bindActionCreators({ setSavedCharacters }, dispatch);
+  return bindActionCreators(
+    { setSavedCharacters, setSelectedCharacter },
+    dispatch,
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(CharactersScreen);

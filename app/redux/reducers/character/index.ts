@@ -1,7 +1,11 @@
 import { Action } from 'redux';
 
 import { actionTypes } from '../../actions/characterActions';
-import { CharacterState, UpdateCharacter } from '../../reduxType';
+import {
+  CharacterState,
+  SetSelectedCharacters,
+  UpdateCharacter,
+} from '../../reduxType';
 
 const initialState: CharacterState = {
   name: '',
@@ -71,6 +75,9 @@ const characterReducer = (state = initialState, action: Action) => {
 
       return { ...state, [key]: value };
     }
+
+    case actionTypes.SET_SELECTED_CHARACTER:
+      return (action as SetSelectedCharacters).payload;
 
     default:
       return state;

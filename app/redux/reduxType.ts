@@ -78,6 +78,8 @@ export interface CharacterState {
   attacks: CharacterAttacks[];
   spells: CharacterSpells[];
 }
+
+// actions
 export interface CharacterAction {
   type: string;
   payload: CharacterState;
@@ -100,9 +102,15 @@ export interface UpdateCharacter {
   payload: UpdateCharacterPayload;
 }
 
-// CharacterList
-export type CharacterListState = string[];
 export interface SetSavedCharacters {
   type: string;
   payload: string[];
 }
+
+export interface SetSelectedCharacters {
+  type: string;
+  payload: CharacterState;
+}
+
+// CharacterList
+export type CharacterListState = string[];

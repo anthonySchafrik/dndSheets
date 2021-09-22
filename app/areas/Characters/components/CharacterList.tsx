@@ -2,32 +2,36 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AnyAction } from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useAppDispatch } from '../../../redux/hooks';
+import { CharacterState } from '../../../redux/reduxType';
 import theme from '../../../theme';
 
 interface Props {
   chars?: string[];
   navScreenPush: () => void;
   setSavedCharacters: (payload: string[]) => AnyAction;
+  setSelectedCharacter: (payload: CharacterState) => AnyAction;
 }
 
 const CharacterList = ({
   chars = [],
   navScreenPush,
   setSavedCharacters,
+  setSelectedCharacter,
 }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleSelectCharacter = (char: string) => async () => {
     try {
-      console.log('handleSelectCharacter => ', { char });
-      // const value = await AsyncStorage.getItem(char);
-      // if (value !== null) {
-      //   setSelectCharacter(JSON.parse(value));
+      const value = await AsyncStorage.getItem(char);
 
-      navScreenPush();
-      // }
+      if (value !== null) {
+        dispatch(setSelectedCharacter(JSON.parse(value)));
+
+        navScreenPush();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +39,7 @@ const CharacterList = ({
 
   const deleteCharacter = async (char: string) => {
     try {
-      // await AsyncStorage.removeItem(char);
+      await AsyncStorage.removeItem(char);
 
       dispatch(setSavedCharacters(chars.filter(x => x !== char)));
     } catch (error) {
