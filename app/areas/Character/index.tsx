@@ -3,7 +3,6 @@ import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 import { DrawerPramList } from '../../Navigation';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
 
 type CharacterScreenNavigationProp = DrawerNavigationProp<
@@ -11,20 +10,13 @@ type CharacterScreenNavigationProp = DrawerNavigationProp<
   'Character'
 >;
 
-enum Screens {
-  'Stats',
-  'Attacks',
-  'Equipment',
-  'Spells',
-}
-
 type Props = {
   navigation: CharacterScreenNavigationProp;
 };
 
 export default function CharacterScreen({ navigation }: Props) {
   const buildTiles = (texts: string[]) => {
-    return texts.map((text: string, i) => {
+    return texts.map((text: keyof DrawerPramList, i) => {
       return (
         <TouchableNativeFeedback
           key={i}
@@ -44,10 +36,6 @@ export default function CharacterScreen({ navigation }: Props) {
           <View>{buildTiles(['Stats', 'Attacks'])}</View>
           <View>{buildTiles(['Equipment', 'Spells'])}</View>
         </View>
-        <StyledButton
-          text="Characters"
-          onClick={() => console.log('clicked')}
-        />
       </View>
     </View>
   );
