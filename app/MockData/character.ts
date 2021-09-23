@@ -57,17 +57,17 @@ export default {
     {
       name: 'Bash',
       bonus: '+ 2',
-      damage: '1d 6',
+      damage: '1 d6',
     },
     {
-      name: 'Bash',
+      name: 'Bashing',
       bonus: '+ 2',
-      damage: '1d 6',
+      damage: '1 d6',
     },
     {
-      name: 'Bash',
+      name: 'Bashed',
       bonus: '+ 2',
-      damage: '1d 6',
+      damage: '1 d6',
     },
   ],
   spells: [
