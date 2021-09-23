@@ -9,6 +9,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators } from 'redux';
@@ -37,8 +38,8 @@ interface ReducerAction {
 }
 
 interface StatsState {
-  stats: any;
-  savingThrows: any;
+  stats: Stats;
+  savingThrows: SavingThrows;
 }
 
 interface Props {
@@ -184,7 +185,9 @@ const StatsScreen = ({
   }, [updatedSavingThrows]);
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.screen}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.screen}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.box}>
