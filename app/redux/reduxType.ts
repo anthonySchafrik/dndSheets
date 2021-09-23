@@ -79,6 +79,16 @@ export interface CharacterState {
   spells: CharacterSpells[];
 }
 
+export interface CombatSkills {
+  proficiency: string;
+  armorClass: string;
+  initiative: string;
+  speed: string;
+  hp: string;
+  hd: string;
+  name: string;
+}
+
 // actions
 export interface CharacterAction {
   type: string;
