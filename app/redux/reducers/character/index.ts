@@ -7,6 +7,9 @@ import {
   UpdateCharacter,
 } from '../../reduxType';
 
+//pulled in when needed to add a new character in
+import mockCharacter from '../../../MockData/character';
+
 const initialState: CharacterState = {
   name: '',
   class: '',

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useReducer } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -12,7 +13,6 @@ import {
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators } from 'redux';
 import { useFocusEffect } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Stats,
@@ -21,8 +21,6 @@ import {
   UpdateCharacterPayload,
 } from '../../../redux/reduxType';
 import { updateCharacter } from '../../../redux/actions/characterActions';
-// import { DrawerNavigationProp } from '@react-navigation/drawer';
-// import { DrawerPramList } from '../../../Navigation';
 import store, { AppState, AppDispatch } from '../../../redux/store';
 import StatOval from './components/StatOval';
 import theme from '../../../theme';
@@ -43,14 +41,11 @@ interface StatsState {
   savingThrows: any;
 }
 
-// type StatsScreenNavigationProp = DrawerNavigationProp<DrawerPramList, 'Stats'>;
-
 interface Props {
   combatSkills: CombatSkills;
   stats: Stats;
   savingThrows: SavingThrows;
   updateCharacter: (payload: UpdateCharacterPayload) => AnyAction;
-  // navigation: StatsScreenNavigationProp;
 }
 
 const combatReducer = (state: CombatSkills, action: ReducerAction) => {
@@ -63,8 +58,10 @@ const combatReducer = (state: CombatSkills, action: ReducerAction) => {
         ...state,
         [key]: value,
       };
+
     case 'retrieve':
       return state;
+
     default:
       throw new Error();
   }
@@ -122,8 +119,7 @@ const StatsScreen = ({
   stats,
   savingThrows,
   updateCharacter,
-}: // navigation,
-Props) => {
+}: Props) => {
   const [updatedCombatSkills, combatDispatch] = useReducer(
     combatReducer,
     combatSkills,
