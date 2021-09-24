@@ -1,6 +1,8 @@
 export default {
   name: 'Tester',
   class: 'Wizard',
+  level: '1',
+  exp: '0',
   treasure: 'Gold rings, red stone',
   equipment: {
     cp: '1',

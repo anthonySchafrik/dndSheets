@@ -65,6 +65,8 @@ export interface CharacterSpells {
 export interface CharacterState {
   name: string;
   class: string;
+  level: string;
+  exp: string;
   treasure: string;
   equipment: Equipment;
   stats: Stats;
@@ -89,6 +91,8 @@ export interface CombatSkills {
   hp: string;
   hd: string;
   name: string;
+  level: string;
+  exp: string;
 }
 
 // actions

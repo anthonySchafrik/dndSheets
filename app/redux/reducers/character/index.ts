@@ -13,6 +13,8 @@ import mockCharacter from '../../../MockData/character';
 const initialState: CharacterState = {
   name: '',
   class: '',
+  level: '',
+  exp: '',
   treasure: '',
   equipment: {
     cp: '',
