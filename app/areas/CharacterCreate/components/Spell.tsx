@@ -116,6 +116,7 @@ class Spell extends Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginVertical: 35,
   },
   rowContainer: {
     flexDirection: 'row',

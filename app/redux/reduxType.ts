@@ -9,6 +9,7 @@ export interface Equipment {
   text: string;
 }
 export interface Stats {
+  [key: string]: any;
   strength: { mult: string; stat: string };
   dexterity: { mult: string; stat: string };
   constitution: { mult: string; stat: string };
@@ -18,6 +19,7 @@ export interface Stats {
 }
 
 export interface SavingThrows {
+  [key: string]: any;
   strength: { mult: string; proficient: boolean };
   dexterity: { mult: string; proficient: boolean };
   constitution: { mult: string; proficient: boolean };
@@ -63,6 +65,8 @@ export interface CharacterSpells {
 export interface CharacterState {
   name: string;
   class: string;
+  level: string;
+  exp: string;
   treasure: string;
   equipment: Equipment;
   stats: Stats;
@@ -87,6 +91,8 @@ export interface CombatSkills {
   hp: string;
   hd: string;
   name: string;
+  level: string;
+  exp: string;
 }
 
 // actions
