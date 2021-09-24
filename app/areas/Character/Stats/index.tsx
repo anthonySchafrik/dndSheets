@@ -205,7 +205,7 @@ const StatsScreen = ({
               onEndEditing={handleUpdateCharacter('hit points maximum', hp)}
             />
           </View>
-          {/* start */}
+
           <View style={styles.squContainer}>
             <View style={styles.row}>
               <Text style={styles.textAlineKindOf}>Initiative</Text>
@@ -263,7 +263,7 @@ const StatsScreen = ({
               />
             </View>
           </View>
-          {/* stop */}
+
           <View style={styles.midContainer}>
             <View style={styles.centered}>
               <Text style={styles.styledText}>Hit Dice</Text>
