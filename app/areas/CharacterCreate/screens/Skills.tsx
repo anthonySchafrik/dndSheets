@@ -111,9 +111,6 @@ const SkillsScreen = ({ navigation }: Props) => {
 
           <View style={styles.buttonContainer}>
             <View style={styles.styledButton}>
-              <Text style={styles.createCharacterText}>Create Character</Text>
-            </View>
-            <View style={styles.styledButton}>
               <Text onPress={setRowsToRender} style={{ color: theme.font }}>
                 Add Attack
               </Text>
