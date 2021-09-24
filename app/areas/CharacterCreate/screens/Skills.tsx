@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderColor: theme.primary,
     borderWidth: 1,
     height: 200,
-    width: 395,
+    width: '95%',
     marginTop: 8,
     paddingLeft: 15,
   },
