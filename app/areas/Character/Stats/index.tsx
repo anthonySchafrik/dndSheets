@@ -9,6 +9,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
+  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators } from 'redux';
@@ -37,8 +38,8 @@ interface ReducerAction {
 }
 
 interface StatsState {
-  stats: any;
-  savingThrows: any;
+  stats: Stats;
+  savingThrows: SavingThrows;
 }
 
 interface Props {
@@ -137,6 +138,8 @@ const StatsScreen = ({
     speed,
     hp,
     hd,
+    level,
+    exp,
   } = updatedCombatSkills;
 
   const {
@@ -184,7 +187,9 @@ const StatsScreen = ({
   }, [updatedSavingThrows]);
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.screen}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.screen}>
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.box}>
@@ -203,7 +208,7 @@ const StatsScreen = ({
 
           <View style={styles.squContainer}>
             <View style={styles.row}>
-              <Text>Initiative</Text>
+              <Text style={styles.textAlineKindOf}>Initiative</Text>
               <TextInput
                 value={initiative}
                 onChangeText={text =>
@@ -217,7 +222,7 @@ const StatsScreen = ({
             </View>
 
             <View style={styles.row}>
-              <Text>Speed</Text>
+              <Text style={styles.textAlineKindOf}>Speed</Text>
               <TextInput
                 value={speed}
                 onChangeText={text =>
@@ -227,6 +232,34 @@ const StatsScreen = ({
                   })
                 }
                 onEndEditing={handleUpdateCharacter('speed', speed)}
+              />
+            </View>
+
+            <View style={styles.row}>
+              <Text style={styles.textAlineKindOf}>Level</Text>
+              <TextInput
+                value={level}
+                onChangeText={text =>
+                  combatDispatch({
+                    type: 'update',
+                    payload: { key: 'level', value: text },
+                  })
+                }
+                onEndEditing={handleUpdateCharacter('level', level)}
+              />
+            </View>
+
+            <View style={styles.row}>
+              <Text style={styles.textAlineKindOf}>Exp</Text>
+              <TextInput
+                value={exp}
+                onChangeText={text =>
+                  combatDispatch({
+                    type: 'update',
+                    payload: { key: 'exp', value: text },
+                  })
+                }
+                onEndEditing={handleUpdateCharacter('exp', exp)}
               />
             </View>
           </View>
@@ -355,6 +388,8 @@ const mapStateToProps = (state: AppState) => {
     'hit dice': hd,
     name,
     savingThrows,
+    exp,
+    level,
   } = state.character;
 
   return {
@@ -366,6 +401,8 @@ const mapStateToProps = (state: AppState) => {
       hp,
       hd,
       name,
+      exp,
+      level,
     },
     stats,
     savingThrows,
@@ -395,7 +432,7 @@ const styles = StyleSheet.create({
   },
   squContainer: {
     backgroundColor: theme.primary,
-    height: 75,
+    height: 80,
     width: '95%',
     justifyContent: 'space-around',
     padding: 5,
@@ -429,6 +466,9 @@ const styles = StyleSheet.create({
     height: 90,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textAlineKindOf: {
+    marginVertical: 13,
   },
 });
 

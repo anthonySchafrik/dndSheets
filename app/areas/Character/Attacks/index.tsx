@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     borderColor: theme.primary,
     borderWidth: 1,
     height: 400,
-    width: 395,
+    width: '95%',
     marginTop: 8,
     padding: 5,
   },

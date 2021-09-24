@@ -1,6 +1,8 @@
 export default {
   name: 'Tester',
   class: 'Wizard',
+  level: '1',
+  exp: '0',
   treasure: 'Gold rings, red stone',
   equipment: {
     cp: '1',
@@ -26,13 +28,13 @@ export default {
     constitution: { mult: '+ 1', proficient: false },
     intelligence: { mult: '+ 7', proficient: true },
     wisdom: { mult: '+ 5', proficient: true },
-    charisma: { mult: '', proficient: false },
+    charisma: { mult: '+ 2', proficient: false },
   },
   'armor class': '12',
   initiative: '+ 2',
   speed: '30 ft',
   'hit points maximum': '7',
-  'hit dice': '1d6 per Wizard level',
+  'hit dice': '1d6 per level',
   skills: {
     acrobatics: { mult: '+ 1', proficient: false },
     arcana: { mult: '+ 7', proficient: true },
