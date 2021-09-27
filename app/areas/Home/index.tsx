@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Analytics from 'appcenter-analytics';
+import Crashes from 'appcenter-crashes';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -15,6 +17,37 @@ const HomeScreen = ({ navigation }: Props) => {
   const navScreenPush = (screen: keyof RootStackParamList) => () => {
     navigation.push(screen);
   };
+
+  async function checkIfCrash() {
+    try {
+      const didCrash = await Crashes.hasCrashedInLastSession();
+
+      console.log({ didCrash });
+
+      if (didCrash) {
+        const crashReport = await Crashes.lastSessionCrashReport();
+        const na = 'not available';
+
+        console.log({ crashReport });
+
+        const payload = {
+          osName: crashReport?.device.osName || na,
+          appVersion: crashReport?.device.appVersion || na,
+          screenSize: crashReport?.device.screenSize || na,
+          model: crashReport?.device.model || na,
+          errorTime: crashReport.appErrorTime + '',
+        };
+
+        await Analytics.trackEvent('CrashReport', payload);
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  }
+
+  useEffect(() => {
+    checkIfCrash();
+  }, []);
 
   return (
     <View style={styles.screen}>
