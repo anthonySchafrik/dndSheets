@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 import { AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -156,6 +157,8 @@ class StatScreen extends Component<Props, State> {
   };
 }
 
+const { height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: '12%',
+    marginVertical: height <= 692 ? '2%' : '12%',
   },
   statBoxes: { height: 600, paddingTop: 35 },
   savingRow: {
