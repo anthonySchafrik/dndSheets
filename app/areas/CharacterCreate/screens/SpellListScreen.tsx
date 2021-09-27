@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../../Navigation';
@@ -89,7 +89,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  spellContainer: { height: 540 },
+  spellContainer: {
+    height: 540,
+    marginVertical: Platform.OS === 'ios' ? 50 : 1,
+  },
   styledText: {
     color: 'white',
   },

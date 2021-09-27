@@ -88,7 +88,7 @@ class EquipmentComponent extends Component<Props, State> {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    width: '85%',
+    width: '95%',
     marginVertical: 30,
     alignSelf: 'center',
   },
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   },
   styledTextInput: {
     color: theme.font,
+    marginVertical: 3,
   },
 });
 
