@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Platform } from 'react-native';
 import { Col, Grid } from 'react-native-easy-grid';
 import { AppState } from '../../../redux/store';
 
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
-    marginVertical: 2,
+    marginVertical: Platform.OS === 'ios' ? 15 : 2,
     alignItems: 'center',
   },
   circle: {

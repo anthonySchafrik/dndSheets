@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.background,
     width: '100%',
-    paddingTop: 25,
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingLeft: 5,
     paddingRight: 5,
+    marginVertical: Platform.OS === 'ios' ? '25%' : '5%',
   },
   rows: {
     width: '48%',
@@ -146,12 +146,10 @@ const styles = StyleSheet.create({
   attackContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
   },
   attSpellContainer: {
     borderColor: theme.primary,
     borderWidth: 1,
-    height: 200,
     width: '95%',
     marginTop: 8,
     paddingLeft: 15,

@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginVertical: '12%',
   },
   statBoxes: { height: 600, paddingTop: 35 },
   savingRow: {
