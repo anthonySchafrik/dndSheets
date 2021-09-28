@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Analytics from 'appcenter-analytics';
+import Crashes from 'appcenter-crashes';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../Navigation';
 import StyledButton from '../../SharedComponents/StyledButton';
+import errorHandler from '../../utils/errorHandler';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -15,6 +18,33 @@ const HomeScreen = ({ navigation }: Props) => {
   const navScreenPush = (screen: keyof RootStackParamList) => () => {
     navigation.push(screen);
   };
+
+  async function checkIfCrash() {
+    try {
+      const didCrash = await Crashes.hasCrashedInLastSession();
+
+      if (didCrash) {
+        const crashReport = await Crashes.lastSessionCrashReport();
+        const na = 'not available';
+
+        const payload = {
+          osName: crashReport?.device.osName || na,
+          appVersion: crashReport?.device.appVersion || na,
+          screenSize: crashReport?.device.screenSize || na,
+          model: crashReport?.device.model || na,
+          errorTime: crashReport.appErrorTime + '',
+        };
+
+        await Analytics.trackEvent('CrashReport', payload);
+      }
+    } catch (error) {
+      errorHandler(error);
+    }
+  }
+
+  useEffect(() => {
+    checkIfCrash();
+  }, []);
 
   return (
     <View style={styles.screen}>

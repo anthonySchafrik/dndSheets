@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppDispatch } from '../../../redux/hooks';
 import { CharacterState } from '../../../redux/reduxType';
 import theme from '../../../theme';
+import errorHandler from '../../../utils/errorHandler';
 
 interface Props {
   chars?: string[];
@@ -33,7 +34,7 @@ const CharacterList = ({
         navScreenPush();
       }
     } catch (error) {
-      console.log(error);
+      errorHandler(error);
     }
   };
 
@@ -43,7 +44,7 @@ const CharacterList = ({
 
       dispatch(setSavedCharacters(chars.filter(x => x !== char)));
     } catch (error) {
-      console.log(error);
+      errorHandler(error);
     }
   };
 

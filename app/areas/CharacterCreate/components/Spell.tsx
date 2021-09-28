@@ -34,7 +34,7 @@ class Spell extends Component<Props, State> {
     description: '',
   };
 
-  stateUpdater = (key: keyof State, value: string) =>
+  stateUpdater = (key: keyof State) => (value: string) =>
     this.setState({ [key]: value });
 
   handleCharacterUpdate = () => {
@@ -66,7 +66,7 @@ class Spell extends Component<Props, State> {
             <Text style={{ color: theme.font }}>Spellcasting class</Text>
             <TextInput
               style={styles.styledInput}
-              onChangeText={text => stateUpdater('spellClass', text)}
+              onChangeText={stateUpdater('spellClass')}
               onEndEditing={handleCharacterUpdate}
             />
           </View>
@@ -74,7 +74,7 @@ class Spell extends Component<Props, State> {
             <Text style={{ color: theme.font }}>Spellcasting Ability</Text>
             <TextInput
               style={styles.styledInput}
-              onChangeText={text => stateUpdater('ability', text)}
+              onChangeText={stateUpdater('ability')}
               onEndEditing={handleCharacterUpdate}
             />
           </View>
@@ -85,7 +85,7 @@ class Spell extends Component<Props, State> {
             <Text style={{ color: theme.font }}>Spell Save DC</Text>
             <TextInput
               style={styles.styledInput}
-              onChangeText={text => stateUpdater('save', text)}
+              onChangeText={stateUpdater('save')}
               onEndEditing={handleCharacterUpdate}
             />
           </View>
@@ -93,7 +93,7 @@ class Spell extends Component<Props, State> {
             <Text style={{ color: theme.font }}>Spell Attack Bonus</Text>
             <TextInput
               style={styles.styledInput}
-              onChangeText={text => stateUpdater('bonus', text)}
+              onChangeText={stateUpdater('bonus')}
               onEndEditing={handleCharacterUpdate}
             />
           </View>
@@ -104,7 +104,7 @@ class Spell extends Component<Props, State> {
           <TextInput
             style={styles.styledInput}
             multiline={true}
-            onChangeText={text => stateUpdater('description', text)}
+            onChangeText={stateUpdater('description')}
             onEndEditing={handleCharacterUpdate}
           />
         </View>

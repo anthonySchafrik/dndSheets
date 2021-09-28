@@ -25,6 +25,7 @@ import { updateCharacter } from '../../../redux/actions/characterActions';
 import store, { AppState, AppDispatch } from '../../../redux/store';
 import StatOval from './components/StatOval';
 import theme from '../../../theme';
+import errorHandler from '../../../utils/errorHandler';
 
 interface ActionPayload {
   [key: string]: string | number;
@@ -147,9 +148,6 @@ const StatsScreen = ({
     savingThrows: updatedSavingThrows,
   } = updateStats;
 
-  const handleUpdateCharacter = (key: string, value: string) => () =>
-    updateCharacter({ key, value });
-
   useFocusEffect(
     React.useCallback(() => {
       const saveUpdateStat = async () => {
@@ -165,7 +163,7 @@ const StatsScreen = ({
             JSON.stringify(character),
           );
         } catch (error) {
-          console.log(error);
+          errorHandler(error);
         }
       };
 
@@ -186,6 +184,16 @@ const StatsScreen = ({
     });
   }, [updatedSavingThrows]);
 
+  const handleUpdateCharacter = (key: string, value: string) => () =>
+    updateCharacter({ key, value });
+
+  const handleCombatReducer = (type: string, key: string) => (text: string) => {
+    combatDispatch({
+      type,
+      payload: { key, value: text },
+    });
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -196,12 +204,7 @@ const StatsScreen = ({
             <Text>HP</Text>
             <TextInput
               value={hp}
-              onChangeText={text =>
-                combatDispatch({
-                  type: 'update',
-                  payload: { key: 'hp', value: text },
-                })
-              }
+              onChangeText={handleCombatReducer('update', 'hp')}
               onEndEditing={handleUpdateCharacter('hit points maximum', hp)}
             />
           </View>
@@ -211,12 +214,7 @@ const StatsScreen = ({
               <Text style={styles.textAlineKindOf}>Initiative</Text>
               <TextInput
                 value={initiative}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'initiative', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'initiative')}
                 onEndEditing={handleUpdateCharacter('initiative', initiative)}
               />
             </View>
@@ -225,12 +223,7 @@ const StatsScreen = ({
               <Text style={styles.textAlineKindOf}>Speed</Text>
               <TextInput
                 value={speed}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'speed', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'speed')}
                 onEndEditing={handleUpdateCharacter('speed', speed)}
               />
             </View>
@@ -239,12 +232,7 @@ const StatsScreen = ({
               <Text style={styles.textAlineKindOf}>Level</Text>
               <TextInput
                 value={level}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'level', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'level')}
                 onEndEditing={handleUpdateCharacter('level', level)}
               />
             </View>
@@ -253,12 +241,7 @@ const StatsScreen = ({
               <Text style={styles.textAlineKindOf}>Exp</Text>
               <TextInput
                 value={exp}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'exp', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'exp')}
                 onEndEditing={handleUpdateCharacter('exp', exp)}
               />
             </View>
@@ -270,12 +253,7 @@ const StatsScreen = ({
               <TextInput
                 value={hd}
                 style={styles.styledText}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'hd', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'hd')}
                 onEndEditing={handleUpdateCharacter('hit dice', hd)}
               />
             </View>
@@ -290,12 +268,7 @@ const StatsScreen = ({
                   paddingLeft: armorClass.length > 1 ? 5 : 14,
                 }}
                 value={armorClass}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'armorClass', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'armorClass')}
                 onEndEditing={handleUpdateCharacter('armor class', armorClass)}
               />
             </ImageBackground>
@@ -305,12 +278,7 @@ const StatsScreen = ({
               <TextInput
                 value={proficiency}
                 style={styles.styledText}
-                onChangeText={text =>
-                  combatDispatch({
-                    type: 'update',
-                    payload: { key: 'proficiency', value: text },
-                  })
-                }
+                onChangeText={handleCombatReducer('update', 'proficiency')}
                 onEndEditing={handleUpdateCharacter(
                   'proficiency bonus',
                   proficiency,

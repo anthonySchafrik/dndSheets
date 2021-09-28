@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   KeyboardAvoidingView,
+  Dimensions,
 } from 'react-native';
 import { AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -47,7 +48,7 @@ type StateUpdate = 'hit points maximum' | 'hit dice';
 class StatScreen extends Component<Props, State> {
   state = { 'hit points maximum': '', 'hit dice': '' };
 
-  handleStateUpdate = (key: StateUpdate, value: string) => {
+  handleStateUpdate = (key: StateUpdate) => (value: string) => {
     this.setState({ [key]: value });
   };
 
@@ -123,9 +124,7 @@ class StatScreen extends Component<Props, State> {
                 <TextInput
                   style={styles.styledTextInput}
                   placeholder="Mult"
-                  onChangeText={text =>
-                    this.handleStateUpdate('hit points maximum', text)
-                  }
+                  onChangeText={this.handleStateUpdate('hit points maximum')}
                   onEndEditing={this.handleCharUpdate('hit points maximum')}
                 />
               </View>
@@ -134,9 +133,7 @@ class StatScreen extends Component<Props, State> {
                 <TextInput
                   style={styles.styledTextInput}
                   placeholder="Mult"
-                  onChangeText={text =>
-                    this.handleStateUpdate('hit dice', text)
-                  }
+                  onChangeText={this.handleStateUpdate('hit dice')}
                   onEndEditing={this.handleCharUpdate('hit dice')}
                 />
               </View>
@@ -156,6 +153,8 @@ class StatScreen extends Component<Props, State> {
   };
 }
 
+const { height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginVertical: '12%',
+    marginVertical: height <= 692 ? '2%' : '12%',
   },
   statBoxes: { height: 600, paddingTop: 35 },
   savingRow: {

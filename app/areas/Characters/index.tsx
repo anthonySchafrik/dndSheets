@@ -15,6 +15,7 @@ import { CharacterState } from '../../redux/reduxType';
 import StyledButton from '../../SharedComponents/StyledButton';
 import theme from '../../theme';
 import CharacterList from './components/CharacterList';
+import errorHandler from '../../utils/errorHandler';
 
 type CharactersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -51,7 +52,7 @@ class CharactersScreen extends Component<Props, State> {
         setSavedCharacters(keys);
       }
     } catch (error) {
-      console.log(error);
+      errorHandler(error);
     }
   };
 

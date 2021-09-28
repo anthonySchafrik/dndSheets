@@ -15,12 +15,12 @@ type Props = {
 };
 
 export default function CharacterScreen({ navigation }: Props) {
+  const nav = (text: keyof DrawerPramList) => () => navigation.navigate(text);
+
   const buildTiles = (texts: string[]) => {
     return texts.map((text: keyof DrawerPramList, i) => {
       return (
-        <TouchableNativeFeedback
-          key={i}
-          onPress={() => navigation.navigate(text)}>
+        <TouchableNativeFeedback key={i} onPress={nav(text)}>
           <View style={styles.tile}>
             <Text>{text}</Text>
           </View>

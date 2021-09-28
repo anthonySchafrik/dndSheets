@@ -22,6 +22,8 @@ const SkillRow = ({ text, subText }: Props) => {
 
   const setProficient = () => handleProficient(!proficient);
 
+  const handleMultUpdate = () => (text: string) => handleUpdateMult(text);
+
   const handleCharacterUpdate = () => {
     const key = text.toLowerCase();
 
@@ -60,7 +62,7 @@ const SkillRow = ({ text, subText }: Props) => {
             placeholder="Mult"
             placeholderTextColor={theme.font}
             style={styles.styledTextInput}
-            onChangeText={text => handleUpdateMult(text)}
+            onChangeText={handleMultUpdate()}
             onEndEditing={handleCharacterUpdate}
           />
         </Col>

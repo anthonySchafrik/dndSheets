@@ -39,7 +39,7 @@ class Attacks extends Component<Props, State> {
     }
   };
 
-  stateUpdater = (key: keyof State, value: string) =>
+  stateUpdater = (key: keyof State) => (value: string) =>
     this.setState({ [key]: value });
 
   handleCharacterUpdate = () => {
@@ -64,7 +64,7 @@ class Attacks extends Component<Props, State> {
         <Col>
           <View style={styles.colContainer}>
             <TextInput
-              onChangeText={text => stateUpdater('name', text)}
+              onChangeText={stateUpdater('name')}
               placeholder="Attack Name"
               placeholderTextColor={theme.font}
               onEndEditing={handleCharacterUpdate}
@@ -78,7 +78,7 @@ class Attacks extends Component<Props, State> {
           <View style={styles.colContainer}>
             <TextInput
               style={styles.styledInput}
-              onChangeText={text => stateUpdater('bonus', text)}
+              onChangeText={stateUpdater('bonus')}
               placeholder="Bonus"
               placeholderTextColor={theme.font}
               onEndEditing={handleCharacterUpdate}
@@ -91,7 +91,7 @@ class Attacks extends Component<Props, State> {
           <View style={styles.colContainer}>
             <TextInput
               style={styles.styledInput}
-              onChangeText={text => stateUpdater('damage', text)}
+              onChangeText={stateUpdater('damage')}
               placeholder="Damage"
               placeholderTextColor={theme.font}
               onEndEditing={handleCharacterUpdate}
