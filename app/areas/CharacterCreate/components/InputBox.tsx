@@ -18,6 +18,8 @@ const InputBox = ({ text, style }: Props) => {
   const handleCharacterUpdate = () =>
     dispatch(updateCharacter({ key: text.toLowerCase(), value: update }));
 
+  const handlingUpdate = () => (text: string) => handleUpdate(text);
+
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
@@ -32,7 +34,7 @@ const InputBox = ({ text, style }: Props) => {
           ]}
           placeholder="stat"
           placeholderTextColor={theme.font}
-          onChangeText={text => handleUpdate(text)}
+          onChangeText={handlingUpdate()}
           onEndEditing={handleCharacterUpdate}
           value={update}
         />

@@ -43,6 +43,11 @@ const SavingThrowRow = ({ text }: Props) => {
     characterUpdater();
   };
 
+  const handleProficientUpdate = (boolean: boolean) => () =>
+    handleProficient(boolean);
+
+  const handleMultUpdate = () => (text: string) => handleUpdateMult(text);
+
   return (
     <Grid style={styles.container}>
       <Col>
@@ -54,7 +59,7 @@ const SavingThrowRow = ({ text }: Props) => {
           }}>
           <Text
             style={{ color: theme.font }}
-            onPress={() => handleProficient(!proficient)}
+            onPress={handleProficientUpdate(!proficient)}
           />
         </View>
       </Col>
@@ -63,7 +68,7 @@ const SavingThrowRow = ({ text }: Props) => {
           placeholder="Mult"
           placeholderTextColor={theme.font}
           style={styles.styledInput}
-          onChangeText={text => handleUpdateMult(text)}
+          onChangeText={handleMultUpdate()}
           onEndEditing={handleCharacterUpdate}
           value={updateMult}
         />

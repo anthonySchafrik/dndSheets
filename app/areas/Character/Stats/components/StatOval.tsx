@@ -14,6 +14,13 @@ interface Props {
 const StatOval = ({ stat, score, multiplier, save, statsDispatch }: Props) => {
   const title = stat.charAt(0).toUpperCase() + stat.slice(1);
 
+  const handleStatsReducer = (type: string, key: string) => (text: string) => {
+    statsDispatch({
+      type,
+      payload: { key, value: text },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.styledText}>{title}</Text>
@@ -21,12 +28,7 @@ const StatOval = ({ stat, score, multiplier, save, statsDispatch }: Props) => {
         <View style={styles.center}>
           <Text>Score</Text>
           <TextInput
-            onChangeText={text => {
-              statsDispatch({
-                type: 'stat',
-                payload: { key: stat, value: text },
-              });
-            }}
+            onChangeText={handleStatsReducer('stat', stat)}
             value={score}
           />
         </View>
@@ -34,12 +36,7 @@ const StatOval = ({ stat, score, multiplier, save, statsDispatch }: Props) => {
         <View style={styles.center}>
           <Text>Multiplier</Text>
           <TextInput
-            onChangeText={text => {
-              statsDispatch({
-                type: 'statMult',
-                payload: { key: stat, value: text },
-              });
-            }}
+            onChangeText={handleStatsReducer('statMult', stat)}
             value={multiplier}
           />
         </View>
@@ -47,12 +44,7 @@ const StatOval = ({ stat, score, multiplier, save, statsDispatch }: Props) => {
         <View style={styles.center}>
           <Text>Save</Text>
           <TextInput
-            onChangeText={text => {
-              statsDispatch({
-                type: 'saving',
-                payload: { key: stat, value: text },
-              });
-            }}
+            onChangeText={handleStatsReducer('saving', stat)}
             value={save}
           />
         </View>

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import store, { AppState } from '../../../redux/store';
 // import { Equipment } from '../../../redux/reduxType';
 import theme from '../../../theme';
+import errorHandler from '../../../utils/errorHandler';
 
 interface ReducerAction {
   type: string;
@@ -64,7 +65,7 @@ const EquipmentScreen = () => {
             JSON.stringify(character),
           );
         } catch (error) {
-          console.log(error);
+          errorHandler(error);
         }
       };
 
@@ -77,6 +78,18 @@ const EquipmentScreen = () => {
   const handleUpdateCharacter = (key: string, value: string) => () =>
     dispatch(updateCharacter({ key, value }));
 
+  const updatedTreasureHandler = () => (text: string) =>
+    handleUpdatedTreasure(text);
+
+  const handleEquipmentReducer = (type: string, key: string) => (
+    text: string,
+  ) => {
+    equipmentDispatch({
+      type,
+      payload: { key, value: text },
+    });
+  };
+
   return (
     <View style={styles.screen}>
       <View style={styles.topContainer}>
@@ -86,7 +99,7 @@ const EquipmentScreen = () => {
             multiline={true}
             style={styles.styledTextField}
             value={updatedTreasure}
-            onChangeText={text => handleUpdatedTreasure(text)}
+            onChangeText={updatedTreasureHandler()}
             onEndEditing={handleUpdateCharacter('treasure', updatedTreasure)}
           />
         </ScrollView>
@@ -102,12 +115,7 @@ const EquipmentScreen = () => {
             <View style={styles.row}>
               <Text>Cp</Text>
               <TextInput
-                onChangeText={text =>
-                  equipmentDispatch({
-                    type: 'update',
-                    payload: { key: 'cp', value: text },
-                  })
-                }
+                onChangeText={handleEquipmentReducer('update', 'cp')}
                 onEndEditing={handleUpdateCharacter(
                   'equipment',
                   updatedEquipment,
@@ -120,12 +128,7 @@ const EquipmentScreen = () => {
             <View style={styles.row}>
               <Text>Sp</Text>
               <TextInput
-                onChangeText={text =>
-                  equipmentDispatch({
-                    type: 'update',
-                    payload: { key: 'sp', value: text },
-                  })
-                }
+                onChangeText={handleEquipmentReducer('update', 'sp')}
                 onEndEditing={handleUpdateCharacter(
                   'equipment',
                   updatedEquipment,
@@ -138,12 +141,7 @@ const EquipmentScreen = () => {
             <View style={styles.row}>
               <Text>Ep</Text>
               <TextInput
-                onChangeText={text =>
-                  equipmentDispatch({
-                    type: 'update',
-                    payload: { key: 'ep', value: text },
-                  })
-                }
+                onChangeText={handleEquipmentReducer('update', 'ep')}
                 onEndEditing={handleUpdateCharacter(
                   'equipment',
                   updatedEquipment,
@@ -156,12 +154,7 @@ const EquipmentScreen = () => {
             <View style={styles.row}>
               <Text>Gp</Text>
               <TextInput
-                onChangeText={text =>
-                  equipmentDispatch({
-                    type: 'update',
-                    payload: { key: 'gp', value: text },
-                  })
-                }
+                onChangeText={handleEquipmentReducer('update', 'gp')}
                 onEndEditing={handleUpdateCharacter(
                   'equipment',
                   updatedEquipment,
@@ -174,12 +167,7 @@ const EquipmentScreen = () => {
             <View style={styles.row}>
               <Text>Pp</Text>
               <TextInput
-                onChangeText={text =>
-                  equipmentDispatch({
-                    type: 'update',
-                    payload: { key: 'pp', value: text },
-                  })
-                }
+                onChangeText={handleEquipmentReducer('update', 'pp')}
                 onEndEditing={handleUpdateCharacter(
                   'equipment',
                   updatedEquipment,
@@ -192,12 +180,7 @@ const EquipmentScreen = () => {
           <TextInput
             value={text}
             multiline={true}
-            onChangeText={text =>
-              equipmentDispatch({
-                type: 'update',
-                payload: { key: 'text', value: text },
-              })
-            }
+            onChangeText={handleEquipmentReducer('update', 'text')}
             onEndEditing={handleUpdateCharacter('equipment', updatedEquipment)}
             style={styles.equipmentTextField}
           />

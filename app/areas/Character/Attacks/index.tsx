@@ -9,6 +9,7 @@ import Attacks from '../../../areas/CharacterCreate/components/Attacks';
 import theme from '../../../theme';
 import StyledButton from '../../../SharedComponents/StyledButton';
 import { useFocusEffect } from '@react-navigation/native';
+import errorHandler from '../../../utils/errorHandler';
 
 const SelectedAttacks = () => {
   const character = useAppSelector((state: AppState) => state.character);
@@ -31,7 +32,7 @@ const SelectedAttacks = () => {
             JSON.stringify(character),
           );
         } catch (error) {
-          console.log(error);
+          errorHandler(error);
         }
       };
 

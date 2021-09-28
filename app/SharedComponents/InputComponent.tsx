@@ -16,11 +16,13 @@ const InputComponent = ({ text }: Props) => {
   const handleCharacterUpdate = () =>
     dispatch(updateCharacter({ key: text.toLowerCase(), value: update }));
 
+  const handlingUpdate = () => (text: string) => handleUpdate(text);
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        onChangeText={text => handleUpdate(text)}
+        onChangeText={handlingUpdate()}
         onEndEditing={handleCharacterUpdate}
         placeholder={text}
         placeholderTextColor={theme.font}

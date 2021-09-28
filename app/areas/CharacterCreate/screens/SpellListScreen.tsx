@@ -8,6 +8,7 @@ import { useAppSelector } from '../../../redux/hooks';
 import { AppState } from '../../../redux/store';
 import Spell from '../components/Spell';
 import theme from '../../../theme';
+import errorHandler from '../../../utils/errorHandler';
 
 type StatsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -31,7 +32,7 @@ const SpellListScreen = ({ navigation }: Props) => {
 
       navigation.replace('Characters');
     } catch (error) {
-      console.log(error);
+      errorHandler(error);
     }
   };
 

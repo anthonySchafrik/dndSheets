@@ -30,6 +30,10 @@ const StatBox = ({ stat }: Props) => {
     );
   };
 
+  const handleMultUpdate = () => (text: string) => handleUpdateMult(text);
+
+  const handleStatUpdate = () => (text: string) => handleUpdateStat(text);
+
   return (
     <Grid style={styles.container}>
       <Row style={styles.rowHeight}>
@@ -40,7 +44,7 @@ const StatBox = ({ stat }: Props) => {
           style={styles.styledText}
           placeholder="Mult"
           placeholderTextColor={theme.font}
-          onChangeText={text => handleUpdateMult(text)}
+          onChangeText={handleMultUpdate()}
           onEndEditing={handleCharacterUpdate}
           value={updateMult}
         />
@@ -50,7 +54,7 @@ const StatBox = ({ stat }: Props) => {
           style={styles.statText}
           placeholder="stat"
           placeholderTextColor={theme.font}
-          onChangeText={text => handleUpdateStat(text)}
+          onChangeText={handleStatUpdate()}
           onEndEditing={handleCharacterUpdate}
           value={updateStat}
         />

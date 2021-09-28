@@ -8,6 +8,7 @@ import Spell from './components/Spell';
 import theme from '../../../theme';
 import { useFocusEffect } from '@react-navigation/native';
 import StyledButton from '../../../SharedComponents/StyledButton';
+import errorHandler from '../../../utils/errorHandler';
 
 const SpellListScreen = () => {
   const character = useAppSelector((state: AppState) => state.character);
@@ -30,7 +31,7 @@ const SpellListScreen = () => {
             JSON.stringify(character),
           );
         } catch (error) {
-          console.log(error);
+          errorHandler(error);
         }
       };
 

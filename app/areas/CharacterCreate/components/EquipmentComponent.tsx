@@ -18,7 +18,7 @@ interface State extends Equipment {}
 class EquipmentComponent extends Component<Props, State> {
   state = { cp: '', sp: '', ep: '', gp: '', pp: '', text: '' };
 
-  stateUpdater = (key: string, value: string) => {
+  stateUpdater = (key: string) => (value: string) => {
     const lowerCaseKey = key.toLowerCase();
 
     this.setState({ [lowerCaseKey]: value });
@@ -43,7 +43,7 @@ class EquipmentComponent extends Component<Props, State> {
           <TextInput
             style={styles.styledTextInput}
             multiline={true}
-            onChangeText={text => stateUpdater(x, text)}
+            onChangeText={stateUpdater(x)}
             onEndEditing={handleCharacterUpdate}
             keyboardType="numeric"
             placeholderTextColor={theme.font}
@@ -71,7 +71,7 @@ class EquipmentComponent extends Component<Props, State> {
           {/* Right column */}
           <View style={styles.inputContainer}>
             <TextInput
-              onChangeText={t => stateUpdater('text', t)}
+              onChangeText={stateUpdater('text')}
               placeholderTextColor={theme.font}
               style={styles.styledTextInput}
               placeholder="Other Equipment"
