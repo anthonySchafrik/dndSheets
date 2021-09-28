@@ -48,7 +48,7 @@ type StateUpdate = 'hit points maximum' | 'hit dice';
 class StatScreen extends Component<Props, State> {
   state = { 'hit points maximum': '', 'hit dice': '' };
 
-  handleStateUpdate = (key: StateUpdate, value: string) => {
+  handleStateUpdate = (key: StateUpdate) => (value: string) => {
     this.setState({ [key]: value });
   };
 
@@ -124,9 +124,7 @@ class StatScreen extends Component<Props, State> {
                 <TextInput
                   style={styles.styledTextInput}
                   placeholder="Mult"
-                  onChangeText={text =>
-                    this.handleStateUpdate('hit points maximum', text)
-                  }
+                  onChangeText={this.handleStateUpdate('hit points maximum')}
                   onEndEditing={this.handleCharUpdate('hit points maximum')}
                 />
               </View>
@@ -135,9 +133,7 @@ class StatScreen extends Component<Props, State> {
                 <TextInput
                   style={styles.styledTextInput}
                   placeholder="Mult"
-                  onChangeText={text =>
-                    this.handleStateUpdate('hit dice', text)
-                  }
+                  onChangeText={this.handleStateUpdate('hit dice')}
                   onEndEditing={this.handleCharUpdate('hit dice')}
                 />
               </View>

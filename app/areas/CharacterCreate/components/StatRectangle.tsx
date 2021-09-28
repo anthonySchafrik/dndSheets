@@ -17,6 +17,8 @@ const StatRectangle = ({ text }: Props) => {
   const handleCharacterUpdate = () =>
     dispatch(updateCharacter({ key: text.toLowerCase(), value: update }));
 
+  const handlingUpdate = () => (text: string) => handleUpdate(text);
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -25,7 +27,7 @@ const StatRectangle = ({ text }: Props) => {
         placeholder="Mult"
         value={update}
         placeholderTextColor={theme.font}
-        onChangeText={text => handleUpdate(text)}
+        onChangeText={handlingUpdate()}
         onEndEditing={handleCharacterUpdate}
       />
       <Text style={{ color: theme.font }}>{text}</Text>
