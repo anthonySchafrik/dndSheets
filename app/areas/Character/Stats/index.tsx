@@ -25,6 +25,7 @@ import { updateCharacter } from '../../../redux/actions/characterActions';
 import store, { AppState, AppDispatch } from '../../../redux/store';
 import StatOval from './components/StatOval';
 import theme from '../../../theme';
+import errorHandler from '../../../utils/errorHandler';
 
 interface ActionPayload {
   [key: string]: string | number;
@@ -162,7 +163,7 @@ const StatsScreen = ({
             JSON.stringify(character),
           );
         } catch (error) {
-          console.log(error);
+          errorHandler(error);
         }
       };
 

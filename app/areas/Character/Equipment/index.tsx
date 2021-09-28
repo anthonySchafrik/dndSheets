@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import store, { AppState } from '../../../redux/store';
 // import { Equipment } from '../../../redux/reduxType';
 import theme from '../../../theme';
+import errorHandler from '../../../utils/errorHandler';
 
 interface ReducerAction {
   type: string;
@@ -64,7 +65,7 @@ const EquipmentScreen = () => {
             JSON.stringify(character),
           );
         } catch (error) {
-          console.log(error);
+          errorHandler(error);
         }
       };
 

@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../Navigation';
 import StyledButton from '../../SharedComponents/StyledButton';
+import errorHandler from '../../utils/errorHandler';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -22,13 +23,9 @@ const HomeScreen = ({ navigation }: Props) => {
     try {
       const didCrash = await Crashes.hasCrashedInLastSession();
 
-      console.log({ didCrash });
-
       if (didCrash) {
         const crashReport = await Crashes.lastSessionCrashReport();
         const na = 'not available';
-
-        console.log({ crashReport });
 
         const payload = {
           osName: crashReport?.device.osName || na,
@@ -41,7 +38,7 @@ const HomeScreen = ({ navigation }: Props) => {
         await Analytics.trackEvent('CrashReport', payload);
       }
     } catch (error) {
-      console.log({ error });
+      errorHandler(error);
     }
   }
 
