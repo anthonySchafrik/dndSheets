@@ -8,6 +8,12 @@ export interface Equipment {
   pp: string;
   text: string;
 }
+
+export interface Proficient {
+  [key: string]: any;
+  mult: string;
+  proficient: boolean;
+}
 export interface Stats {
   [key: string]: any;
   strength: { mult: string; stat: string };
@@ -20,33 +26,34 @@ export interface Stats {
 
 export interface SavingThrows {
   [key: string]: any;
-  strength: { mult: string; proficient: boolean };
-  dexterity: { mult: string; proficient: boolean };
-  constitution: { mult: string; proficient: boolean };
-  intelligence: { mult: string; proficient: boolean };
-  wisdom: { mult: string; proficient: boolean };
-  charisma: { mult: string; proficient: boolean };
+  strength: Proficient;
+  dexterity: Proficient;
+  constitution: Proficient;
+  intelligence: Proficient;
+  wisdom: Proficient;
+  charisma: Proficient;
 }
 
 export interface Skills {
-  acrobatics: { mult: string; proficient: boolean };
-  arcana: { mult: string; proficient: boolean };
-  deception: { mult: string; proficient: boolean };
-  insight: { mult: string; proficient: boolean };
-  investigation: { mult: string; proficient: boolean };
-  nature: { mult: string; proficient: boolean };
-  performance: { mult: string; proficient: boolean };
-  religion: { mult: string; proficient: boolean };
-  stealth: { mult: string; proficient: boolean };
-  'animal handling': { mult: string; proficient: boolean };
-  athletics: { mult: string; proficient: boolean };
-  history: { mult: string; proficient: boolean };
-  intimidation: { mult: string; proficient: boolean };
-  medicine: { mult: string; proficient: boolean };
-  perception: { mult: string; proficient: boolean };
-  persuasion: { mult: string; proficient: boolean };
-  'sleight of hand': { mult: string; proficient: boolean };
-  survival: { mult: string; proficient: boolean };
+  [key: string]: any;
+  acrobatics: Proficient;
+  arcana: Proficient;
+  deception: Proficient;
+  insight: Proficient;
+  investigation: Proficient;
+  nature: Proficient;
+  performance: Proficient;
+  religion: Proficient;
+  stealth: Proficient;
+  'animal handling': Proficient;
+  athletics: Proficient;
+  history: Proficient;
+  intimidation: Proficient;
+  medicine: Proficient;
+  perception: Proficient;
+  persuasion: Proficient;
+  'sleight of hand': Proficient;
+  survival: Proficient;
 }
 
 export interface CharacterAttacks {

@@ -14,6 +14,8 @@ import CharacterStatScreen from './areas/Character/Stats';
 import CharacterEquipmentScreen from './areas/Character/Equipment';
 import CharacterAttacksScreen from './areas/Character/Attacks';
 import CharacterSpellsScreen from './areas/Character/Spells';
+import CharacterSkillsScreen from './areas/Character/Skills';
+import DiceScreen from './areas/Character/Dice';
 import theme from './theme';
 
 export type RootStackParamList = {
@@ -32,6 +34,8 @@ export type DrawerPramList = {
   Equipment: undefined;
   Attacks: undefined;
   Spells: undefined;
+  Skills: undefined;
+  Dice: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
@@ -56,6 +60,8 @@ function DrawerNavigator() {
       <Drawer.Screen name="Equipment" component={CharacterEquipmentScreen} />
       <Drawer.Screen name="Attacks" component={CharacterAttacksScreen} />
       <Drawer.Screen name="Spells" component={CharacterSpellsScreen} />
+      <Drawer.Screen name="Skills" component={CharacterSkillsScreen} />
+      <Drawer.Screen name="Dice" component={DiceScreen} />
     </Drawer.Navigator>
   );
 }
