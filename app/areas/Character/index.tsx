@@ -35,6 +35,7 @@ export default function CharacterScreen({ navigation }: Props) {
         <View style={styles.tilesContainer}>
           <View>{buildTiles(['Stats', 'Attacks'])}</View>
           <View>{buildTiles(['Equipment', 'Spells'])}</View>
+          <View>{buildTiles(['Skills', 'Dice'])}</View>
         </View>
       </View>
     </View>
@@ -44,13 +45,11 @@ export default function CharacterScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    alignItems: 'flex-start',
     backgroundColor: theme.background,
     padding: 10,
   },
   container: {
     justifyContent: 'space-around',
-    alignItems: 'center',
     height: '100%',
   },
   tilesContainer: {
