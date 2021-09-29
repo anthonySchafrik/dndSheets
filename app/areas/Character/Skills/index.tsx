@@ -1,44 +1,19 @@
 import React, { useEffect, useReducer } from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import skillConfig from './utils/skillConfig';
+import { skillConfig, initialSkillsState, SkillScreenState } from './utils';
 import { AppState } from '../../../redux/store';
 import { Skills } from '../../../redux/reduxType';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-
-const initialState = {
-  strength: {
-    athletics: { mult: '', stat: '' },
-  },
-  dexterity: {
-    acrobatics: { mult: '', stat: '' },
-    'sleight of hand': { mult: '', stat: '' },
-    stealth: { mult: '', stat: '' },
-  },
-  intelligence: {
-    arcana: { mult: '', stat: '' },
-    investigation: { mult: '', stat: '' },
-    nature: { mult: '', stat: '' },
-    religion: { mult: '', stat: '' },
-    history: { mult: '', stat: '' },
-  },
-  wisdom: {
-    'animal handling': { mult: '', stat: '' },
-    insight: { mult: '', stat: '' },
-    medicine: { mult: '', stat: '' },
-    perception: { mult: '', stat: '' },
-    survival: { mult: '', stat: '' },
-  },
-  charisma: {
-    deception: { mult: '', stat: '' },
-    performance: { mult: '', stat: '' },
-    intimidation: { mult: '', stat: '' },
-    persuasion: { mult: '', stat: '' },
-  },
-};
+import {
+  // useAppDispatch,
+  useAppSelector,
+} from '../../../redux/hooks';
+import theme from '../../../theme';
+import SkillRows from './component/SkillRows';
 
 const remapSkills = (skills: Skills) => {
-  const remappedSkills = {};
+  const remappedSkills: SkillScreenState = {};
+
   for (const key in skills) {
     const skillGroupName = skillConfig[key];
 
@@ -57,7 +32,7 @@ const remapSkills = (skills: Skills) => {
 
 const skillsReducer = (state: any, action: any) => {
   const { type, payload } = action;
-  const { key, value } = payload;
+  const { value } = payload;
 
   switch (type) {
     // case 'update':
@@ -75,13 +50,15 @@ const skillsReducer = (state: any, action: any) => {
 };
 
 const SkillsScreen = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  const { skills } = useAppSelector((state: AppState) => state.character);
+  const { skills, savingThrows } = useAppSelector(
+    (state: AppState) => state.character,
+  );
 
   const [updatedSkills, skillsDispatch] = useReducer(
     skillsReducer,
-    initialState,
+    initialSkillsState,
   );
 
   useEffect(() => {
@@ -93,11 +70,39 @@ const SkillsScreen = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const buildSkillsBlocks = () => {
+    const keys = Object.keys(updatedSkills);
+
+    return keys.map((stat, index) => (
+      <View style={styles.rowItem}>
+        <SkillRows
+          key={`${stat}${index}`}
+          mainStat={stat}
+          skills={updatedSkills[stat]}
+          mult={savingThrows[stat].mult}
+        />
+      </View>
+    ));
+  };
+
   return (
-    <View>
-      <Text>Saving Throwing Screen</Text>
+    <View style={styles.screen}>
+      <View style={styles.container}>{buildSkillsBlocks()}</View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: theme.background,
+  },
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  rowItem: { marginVertical: 5 },
+});
 
 export default SkillsScreen;

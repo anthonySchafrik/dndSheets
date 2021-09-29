@@ -14,14 +14,20 @@ export interface Proficient {
   mult: string;
   proficient: boolean;
 }
+
+export interface StatMult {
+  [key: string]: string;
+  mult: string;
+  stat: string;
+}
 export interface Stats {
   [key: string]: any;
-  strength: { mult: string; stat: string };
-  dexterity: { mult: string; stat: string };
-  constitution: { mult: string; stat: string };
-  intelligence: { mult: string; stat: string };
-  wisdom: { mult: string; stat: string };
-  charisma: { mult: string; stat: string };
+  strength: StatMult;
+  dexterity: StatMult;
+  constitution: StatMult;
+  intelligence: StatMult;
+  wisdom: StatMult;
+  charisma: StatMult;
 }
 
 export interface SavingThrows {
