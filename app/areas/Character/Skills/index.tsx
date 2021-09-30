@@ -74,9 +74,8 @@ const SkillsScreen = () => {
     const keys = Object.keys(updatedSkills);
 
     return keys.map((stat, index) => (
-      <View style={styles.rowItem}>
+      <View style={styles.rowItem} key={`${stat}${index}`}>
         <SkillRows
-          key={`${stat}${index}`}
           mainStat={stat}
           skills={updatedSkills[stat]}
           mult={savingThrows[stat].mult}
