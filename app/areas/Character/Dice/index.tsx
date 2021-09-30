@@ -1,5 +1,7 @@
 import React, { useReducer } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown';
+
 import theme from '../../../theme';
 
 const initialDiceState = {
@@ -54,11 +56,41 @@ const Dice = () => {
     });
   };
 
-  console.log(rolls);
+  const saves = [
+    'strength',
+    'dexterity',
+    'constitution',
+    'intelligence',
+    'wisdom',
+    'charisma',
+  ];
 
   return (
     <View style={styles.screen}>
-      <Text>Select Multiplier</Text>
+      <View style={styles.ddlContainer}>
+        <SelectDropdown
+          data={saves}
+          defaultButtonText={'Saving Throws'}
+          onSelect={(selectedItem, index) => {
+            console.log(selectedItem, index);
+          }}
+          buttonTextAfterSelection={(selectedItem, index) => {
+            return selectedItem;
+          }}
+          rowTextForSelection={(item, index) => {
+            return item;
+          }}
+          buttonStyle={styles.ddlButtonStyle}
+          rowStyle={styles.ddlRow}
+          renderCustomizedRowChild={(item, index) => {
+            return (
+              <View>
+                <Text>{item}</Text>
+              </View>
+            );
+          }}
+        />
+      </View>
       <View style={styles.diceContainer}>
         <TouchableOpacity onPress={diceRoller(1, 4, 'd4')}>
           <Image
@@ -157,5 +189,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: 2,
     color: theme.font,
+  },
+  ddlContainer: { alignItems: 'center', marginVertical: 5 },
+  ddlButtonStyle: {
+    backgroundColor: theme.primary,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#444',
+  },
+  ddlRow: {
+    backgroundColor: theme.background,
+    borderRadius: 8,
+    borderWidth: 1,
   },
 });
