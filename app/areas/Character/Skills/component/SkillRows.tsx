@@ -17,7 +17,7 @@ const SkillRows = ({ mainStat, skills, mult }: Props) => {
 
     return keys.map((stat, index) => (
       <View
-        key={index}
+        key={`${index}${stat}`}
         style={{
           ...styles.rowItem,
           backgroundColor: skills[stat].proficient
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: 2,
     marginVertical: 3,
-    width: 170,
+    width: 140,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
