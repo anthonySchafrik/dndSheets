@@ -1,6 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
+
+import { useAppSelector } from '../../../redux/hooks';
+import { AppState } from '../../../redux/store';
 
 import theme from '../../../theme';
 
@@ -31,7 +34,10 @@ const rollReducer = (state: any, action: any) => {
 };
 
 const Dice = () => {
+  const { savingThrows } = useAppSelector((state: AppState) => state.character);
+
   const [rolls, rollsDispatch] = useReducer(rollReducer, initialDiceState);
+  const [selectedThrow, setSelectedThrow] = useState('');
 
   const diceRoller = (minRoll: number, maxRoll: number, dice: string) => () => {
     const min = Math.ceil(minRoll);
@@ -71,18 +77,19 @@ const Dice = () => {
         <SelectDropdown
           data={saves}
           defaultButtonText={'Saving Throws'}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          dropdownStyle={{ backgroundColor: theme.secondary }}
+          onSelect={selectedItem => {
+            setSelectedThrow(selectedItem);
           }}
-          buttonTextAfterSelection={(selectedItem, index) => {
+          buttonTextAfterSelection={selectedItem => {
             return selectedItem;
           }}
-          rowTextForSelection={(item, index) => {
+          rowTextForSelection={item => {
             return item;
           }}
           buttonStyle={styles.ddlButtonStyle}
           rowStyle={styles.ddlRow}
-          renderCustomizedRowChild={(item, index) => {
+          renderCustomizedRowChild={item => {
             return (
               <View>
                 <Text>{item}</Text>
@@ -90,7 +97,11 @@ const Dice = () => {
             );
           }}
         />
+        <Text style={styles.savingThrowText}>
+          {selectedThrow ? savingThrows[selectedThrow].mult : null}
+        </Text>
       </View>
+
       <View style={styles.diceContainer}>
         <TouchableOpacity onPress={diceRoller(1, 4, 'd4')}>
           <Image
@@ -190,7 +201,11 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     color: theme.font,
   },
-  ddlContainer: { alignItems: 'center', marginVertical: 5 },
+  ddlContainer: {
+    marginVertical: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
   ddlButtonStyle: {
     backgroundColor: theme.primary,
     borderRadius: 8,
@@ -202,4 +217,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
   },
+  savingThrowText: { alignSelf: 'center' },
 });
