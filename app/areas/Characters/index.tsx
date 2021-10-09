@@ -86,7 +86,6 @@ class CharactersScreen extends Component<Props, State> {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: theme.background,

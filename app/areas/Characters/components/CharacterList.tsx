@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AnyAction } from 'redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -59,32 +66,34 @@ const CharacterList = ({
     );
   };
 
-  const renderCharacterList = () => {
-    return chars.map((char, i) => {
-      return (
-        <View style={styles.list} key={i}>
-          <View style={styles.innerContainer}>
-            <Text
-              style={{ color: theme.font }}
-              onPress={handleSelectCharacter(char)}>
-              {char}
-            </Text>
-          </View>
-          <Icon
-            name="delete"
-            size={20}
-            color="black"
-            onPress={handleDeleteCharacter(char)}
-          />
+  const renderCharacterList = ({ item }: { item: string }) => {
+    return (
+      <View style={styles.list}>
+        <View style={styles.innerContainer}>
+          <Text
+            style={{ color: theme.font }}
+            onPress={handleSelectCharacter(item)}>
+            {item}
+          </Text>
         </View>
-      );
-    });
+        <Icon
+          name="delete"
+          size={20}
+          color="black"
+          onPress={handleDeleteCharacter(item)}
+        />
+      </View>
+    );
   };
 
   return (
-    <View style={styles.screen}>
-      <ScrollView style={styles.container}>{renderCharacterList()}</ScrollView>
-    </View>
+    <SafeAreaView style={styles.screen}>
+      <FlatList
+        data={chars}
+        renderItem={renderCharacterList}
+        keyExtractor={char => char}
+      />
+    </SafeAreaView>
   );
 };
 
@@ -97,7 +106,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginVertical: 10,
   },
-  container: { width: 300 },
   innerContainer: {
     width: '60%',
     flexDirection: 'row',
