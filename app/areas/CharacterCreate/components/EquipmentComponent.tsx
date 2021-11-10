@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { bindActionCreators } from 'redux';
@@ -42,7 +42,6 @@ class EquipmentComponent extends Component<Props, State> {
           <Text style={{ color: theme.font }}>{x}</Text>
           <TextInput
             style={styles.styledTextInput}
-            multiline={true}
             onChangeText={stateUpdater(x)}
             onEndEditing={handleCharacterUpdate}
             keyboardType="numeric"
@@ -60,7 +59,7 @@ class EquipmentComponent extends Component<Props, State> {
     return (
       <View style={styles.screen}>
         <View>
-          <Text style={{ color: theme.font }}>Equipment</Text>
+          <Text style={styles.equipmentText}>Equipment</Text>
         </View>
         <View style={styles.container}>
           {/* left column */}
@@ -90,12 +89,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '95%',
     marginVertical: 30,
-    alignSelf: 'center',
   },
   container: {
     width: '100%',
-    borderColor: theme.primary,
-    borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -109,6 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: 60,
+    marginVertical: Platform.OS === 'ios' ? 10 : 1,
   },
   inputContainer: {
     width: '75%',
@@ -117,6 +114,7 @@ const styles = StyleSheet.create({
     color: theme.font,
     marginVertical: 3,
   },
+  equipmentText: { color: theme.font, marginBottom: 5 },
 });
 
 const mapStateToProps = () => {
