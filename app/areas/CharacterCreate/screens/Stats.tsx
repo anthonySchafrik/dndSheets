@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -44,6 +45,14 @@ interface InputBoxes {
 }
 
 type StateUpdate = 'hit points maximum' | 'hit dice';
+const statsToMap = [
+  'Strength',
+  'Dexterity',
+  'Constitution',
+  'Intelligence',
+  'Wisdom',
+  'Charisma',
+];
 
 class StatScreen extends Component<Props, State> {
   state = { 'hit points maximum': '', 'hit dice': '' };
@@ -60,17 +69,11 @@ class StatScreen extends Component<Props, State> {
     updateCharacter({ key, value });
   };
 
-  buildStatBoxes = (statTexts: string[]) =>
-    statTexts.map((stat, i) => <StatBox key={i} stat={stat} />);
-
-  buildSavingThrowRows = (throwsText: string[]) =>
-    throwsText.map((text, i) => <SavingThrowRow key={i} text={text} />);
-
   buildInputBoxes = (boxTexts: InputBoxes[]) =>
-    boxTexts.map((x, i) => {
+    boxTexts.map(x => {
       const { text, style } = x;
 
-      return <InputBox text={text} key={i} style={style} />;
+      return <InputBox text={text} key={text} style={style} />;
     });
 
   navScreenPush = (screen: keyof RootStackParamList) => () => {
@@ -81,74 +84,62 @@ class StatScreen extends Component<Props, State> {
 
   render = () => {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.screen}>
-        <View style={styles.container}>
-          <View style={styles.statBoxes}>
-            {this.buildStatBoxes([
-              'Strength',
-              'Dexterity',
-              'Constitution',
-              'Intelligence',
-              'Wisdom',
-              'Charisma',
-            ])}
-          </View>
-
-          <View style={styles.rightContainer}>
-            <StatRectangle text="Inspiration" />
-            <StatRectangle text="Proficiency Bonus" />
-
-            <View style={styles.savingRow}>
-              {this.buildSavingThrowRows([
-                'Strength',
-                'Dexterity',
-                'Constitution',
-                'Intelligence',
-                'Wisdom',
-                'Charisma',
-              ])}
-              <Text style={{ color: theme.font }}>Saving Throws</Text>
+      <View style={styles.screen}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View style={styles.container}>
+            <View style={styles.statBoxes}>
+              {statsToMap.map(stat => (
+                <StatBox key={stat} stat={stat} />
+              ))}
             </View>
-
-            <View style={styles.boxRows}>
-              {this.buildInputBoxes([
-                { text: 'Armor Class', style: { paddingLeft: 15 } },
-                { text: 'Initiative', style: {} },
-                { text: 'Speed', style: {} },
-              ])}
-            </View>
-
-            <View style={styles.hitRow}>
-              <View style={styles.row}>
-                <Text style={{ color: theme.font }}>Hit Points Maximum</Text>
-                <TextInput
-                  style={styles.styledTextInput}
-                  placeholder="Mult"
-                  onChangeText={this.handleStateUpdate('hit points maximum')}
-                  onEndEditing={this.handleCharUpdate('hit points maximum')}
-                />
+            <View>
+              <StatRectangle text="Inspiration" />
+              <StatRectangle text="Proficiency Bonus" />
+              <Text style={styles.savingThrowText}>Saving Throws</Text>
+              <View style={styles.savingRow}>
+                {statsToMap.map(stat => (
+                  <SavingThrowRow key={stat} text={stat} />
+                ))}
               </View>
-              <View style={styles.row}>
-                <Text style={{ color: theme.font }}>Hit Dice</Text>
-                <TextInput
-                  style={styles.styledTextInput}
-                  placeholder="Mult"
-                  onChangeText={this.handleStateUpdate('hit dice')}
-                  onEndEditing={this.handleCharUpdate('hit dice')}
+              <View style={styles.boxRows}>
+                {this.buildInputBoxes([
+                  { text: 'Armor Class', style: { paddingLeft: 15 } },
+                  { text: 'Initiative', style: {} },
+                  { text: 'Speed', style: {} },
+                ])}
+              </View>
+              <View style={styles.hitRow}>
+                <View style={styles.row}>
+                  <Text style={{ color: theme.font }}>Hit Points Maximum</Text>
+                  <TextInput
+                    style={styles.styledTextInput}
+                    placeholder="Mult"
+                    onChangeText={this.handleStateUpdate('hit points maximum')}
+                    onEndEditing={this.handleCharUpdate('hit points maximum')}
+                  />
+                </View>
+                <View style={styles.row}>
+                  <Text style={{ color: theme.font }}>Hit Dice</Text>
+                  <TextInput
+                    style={styles.styledTextInput}
+                    placeholder="Mult"
+                    onChangeText={this.handleStateUpdate('hit dice')}
+                    onEndEditing={this.handleCharUpdate('hit dice')}
+                  />
+                </View>
+              </View>
+              <View>
+                <StyledButton
+                  style={styles.styledButton}
+                  onClick={this.navScreenPush('CreateSkills')}
+                  text="Skills"
                 />
               </View>
             </View>
-
-            <View style={styles.buttonContainer}>
-              <StyledButton
-                style={styles.styledButton}
-                onClick={this.navScreenPush('CreateSkills')}
-                text="Skills"
-              />
-            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </View>
     );
   };
 }
@@ -159,17 +150,19 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: theme.background,
+    paddingTop: height <= 845 ? 32 : 0,
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginVertical: height <= 692 ? '2%' : '12%',
+    borderWidth: 1,
+    borderColor: 'red',
   },
-  statBoxes: { height: 600, paddingTop: 35 },
+  statBoxes: { height: 600 },
   savingRow: {
     height: 290,
     backgroundColor: theme.secondary,
-    alignItems: 'center',
   },
   boxRows: {
     flexDirection: 'row',
@@ -186,13 +179,15 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
   },
-  styledTextInput: {},
+  styledTextInput: { height: 35 },
   styledButton: {
     marginTop: 15,
     backgroundColor: theme.secondary,
   },
-  buttonContainer: { paddingLeft: 25 },
-  rightContainer: { paddingTop: 15 },
+  savingThrowText: {
+    color: theme.font,
+    textAlign: 'center',
+  },
 });
 
 const mapStateToProps = () => {

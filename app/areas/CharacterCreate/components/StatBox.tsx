@@ -36,10 +36,10 @@ const StatBox = ({ stat }: Props) => {
 
   return (
     <Grid style={styles.container}>
-      <Row style={styles.rowHeight}>
+      <Row size={1} style={styles.rowHeight}>
         <Text style={styles.styledText}>{stat}</Text>
       </Row>
-      <Row>
+      <Row size={2}>
         <TextInput
           style={styles.styledText}
           placeholder="Mult"
@@ -49,7 +49,7 @@ const StatBox = ({ stat }: Props) => {
           value={updateMult}
         />
       </Row>
-      <Row>
+      <Row size={2}>
         <TextInput
           style={styles.statText}
           placeholder="stat"
@@ -65,7 +65,7 @@ const StatBox = ({ stat }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 80,
+    width: 90,
     backgroundColor: theme.secondary,
     marginVertical: 3,
     alignItems: 'center',

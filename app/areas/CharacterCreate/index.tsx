@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    marginTop: Platform.OS === 'ios' ? 100 : 30,
+    marginTop: Platform.OS === 'ios' ? '25%' : '5%',
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'flex-start',

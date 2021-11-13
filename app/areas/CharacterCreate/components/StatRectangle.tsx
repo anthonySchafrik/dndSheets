@@ -21,6 +21,7 @@ const StatRectangle = ({ text }: Props) => {
 
   return (
     <View style={styles.container}>
+      <Text style={{ color: theme.font }}>{text}</Text>
       <TextInput
         // eslint-disable-next-line react-native/no-inline-styles
         style={{ paddingLeft: update.length > 0 ? 6 : 0, color: theme.font }}
@@ -30,17 +31,16 @@ const StatRectangle = ({ text }: Props) => {
         onChangeText={handlingUpdate()}
         onEndEditing={handleCharacterUpdate}
       />
-      <Text style={{ color: theme.font }}>{text}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    height: 35,
     width: 260,
     backgroundColor: theme.secondary,
-    marginVertical: 5,
+
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
