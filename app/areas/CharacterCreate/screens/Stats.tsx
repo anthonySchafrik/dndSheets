@@ -129,7 +129,7 @@ class StatScreen extends Component<Props, State> {
                   />
                 </View>
               </View>
-              <View>
+              <View style={styles.buttonContainer}>
                 <StyledButton
                   style={styles.styledButton}
                   onClick={this.navScreenPush('CreateSkills')}
@@ -156,8 +156,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginVertical: height <= 692 ? '2%' : '12%',
-    borderWidth: 1,
-    borderColor: 'red',
   },
   statBoxes: { height: 600 },
   savingRow: {
@@ -187,6 +185,9 @@ const styles = StyleSheet.create({
   savingThrowText: {
     color: theme.font,
     textAlign: 'center',
+  },
+  buttonContainer: {
+    alignItems: 'center',
   },
 });
 
