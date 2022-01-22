@@ -50,7 +50,7 @@ const SavingThrowRow = ({ text }: Props) => {
 
   return (
     <Grid style={styles.container}>
-      <Col>
+      <Col size={2}>
         <View
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
@@ -63,7 +63,7 @@ const SavingThrowRow = ({ text }: Props) => {
           />
         </View>
       </Col>
-      <Col>
+      <Col size={2}>
         <TextInput
           placeholder="Mult"
           placeholderTextColor={theme.font}
@@ -73,7 +73,7 @@ const SavingThrowRow = ({ text }: Props) => {
           value={updateMult}
         />
       </Col>
-      <Col style={styles.textCol}>
+      <Col size={2} style={styles.textCol}>
         <Text style={{ color: theme.font }}>{text}</Text>
       </Col>
     </Grid>
@@ -82,7 +82,7 @@ const SavingThrowRow = ({ text }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 5,
+    marginVertical: 7,
     paddingLeft: 5,
     paddingRight: 15,
   },
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   styledInput: {
-    width: '35%',
     color: theme.font,
   },
   textCol: { alignItems: 'flex-end' },

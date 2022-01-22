@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { bindActionCreators } from 'redux';
@@ -14,6 +14,8 @@ interface Props {
 }
 
 interface State extends Equipment {}
+
+const moneyType = ['CP', 'SP', 'EP', 'GP', 'PP'];
 
 class EquipmentComponent extends Component<Props, State> {
   state = { cp: '', sp: '', ep: '', gp: '', pp: '', text: '' };
@@ -33,41 +35,33 @@ class EquipmentComponent extends Component<Props, State> {
     updateCharacter({ key: 'equipment', value: state });
   };
 
-  buildRowContainer = (texts: string[]) => {
-    const { stateUpdater, handleCharacterUpdate } = this;
-
-    return texts.map((x, i) => {
-      return (
-        <View key={i} style={styles.row}>
-          <Text style={{ color: theme.font }}>{x}</Text>
-          <TextInput
-            style={styles.styledTextInput}
-            multiline={true}
-            onChangeText={stateUpdater(x)}
-            onEndEditing={handleCharacterUpdate}
-            keyboardType="numeric"
-            placeholderTextColor={theme.font}
-            placeholder="Amount"
-          />
-        </View>
-      );
-    });
-  };
-
   render = () => {
-    const { buildRowContainer, stateUpdater, handleCharacterUpdate } = this;
+    const { stateUpdater, handleCharacterUpdate } = this;
 
     return (
       <View style={styles.screen}>
         <View>
-          <Text style={{ color: theme.font }}>Equipment</Text>
+          <Text style={styles.equipmentText}>Equipment</Text>
         </View>
         <View style={styles.container}>
           {/* left column */}
           <View style={styles.rowContainer}>
-            {buildRowContainer(['CP', 'SP', 'EP', 'GP', 'PP'])}
+            {moneyType.map((x, i) => {
+              return (
+                <View key={i} style={styles.row}>
+                  <Text style={{ color: theme.font }}>{x}</Text>
+                  <TextInput
+                    style={styles.styledTextInput}
+                    onChangeText={stateUpdater(x)}
+                    onEndEditing={handleCharacterUpdate}
+                    keyboardType="numeric"
+                    placeholderTextColor={theme.font}
+                    placeholder="Amount"
+                  />
+                </View>
+              );
+            })}
           </View>
-
           {/* Right column */}
           <View style={styles.inputContainer}>
             <TextInput
@@ -75,7 +69,6 @@ class EquipmentComponent extends Component<Props, State> {
               placeholderTextColor={theme.font}
               style={styles.styledTextInput}
               placeholder="Other Equipment"
-              multiline={true}
               onEndEditing={handleCharacterUpdate}
             />
           </View>
@@ -89,13 +82,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     width: '95%',
-    marginVertical: 30,
-    alignSelf: 'center',
+    marginVertical: Platform.OS === 'ios' ? '10%' : '5%',
   },
   container: {
     width: '100%',
-    borderColor: theme.primary,
-    borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -103,12 +93,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 5,
     alignItems: 'center',
+    width: '20%',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: 60,
+    marginVertical: Platform.OS === 'ios' ? 10 : 1,
   },
   inputContainer: {
     width: '75%',
@@ -117,6 +109,7 @@ const styles = StyleSheet.create({
     color: theme.font,
     marginVertical: 3,
   },
+  equipmentText: { color: theme.font, marginBottom: 5 },
 });
 
 const mapStateToProps = () => {
